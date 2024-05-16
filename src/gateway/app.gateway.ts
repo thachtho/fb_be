@@ -45,7 +45,7 @@ export class AppGateway
 
     if (!check) {
       if (posts.length === 20) {
-        posts.shift();
+        posts.pop();
       }
 
       posts.unshift({
