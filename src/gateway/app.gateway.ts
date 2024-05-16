@@ -50,7 +50,6 @@ export class AppGateway
 
       posts.push({
         ...payload,
-        created_at: new Date(),
       });
       void this.server.emit('postMessage', posts.reverse());
     }
