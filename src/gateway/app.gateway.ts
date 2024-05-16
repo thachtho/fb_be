@@ -48,10 +48,11 @@ export class AppGateway
         posts.shift();
       }
 
-      posts.push({
+      posts.unshift({
         ...payload,
       });
-      void this.server.emit('postMessage', posts.reverse());
+
+      void this.server.emit('postMessage', posts);
     }
   }
 }
