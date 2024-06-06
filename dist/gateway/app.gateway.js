@@ -10,10 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppGateway = void 0;
+const axios_1 = require("@nestjs/axios");
+const schedule_1 = require("@nestjs/schedule");
 const websockets_1 = require("@nestjs/websockets");
+const rxjs_1 = require("rxjs");
 const socket_io_1 = require("socket.io");
 const Post_1 = require("../Post/Post");
 let AppGateway = class AppGateway {
+    constructor(httpService) {
+        this.httpService = httpService;
+    }
     afterInit(server) {
         console.log('Socket.IO server initialized');
     }
@@ -28,14 +34,22 @@ let AppGateway = class AppGateway {
         const check = posts.find((item) => item.postId === payload.postId);
         if (!check) {
             if (posts.length === 20) {
-                posts.shift();
+                posts.pop();
             }
-            posts.push({
+            posts.unshift({
                 ...payload,
-                created_at: new Date(),
             });
-            void this.server.emit('postMessage', posts.reverse());
+            void this.server.emit('postMessage', posts);
         }
+    }
+    async resetIp() {
+        try {
+            console.log('reset ippppppppppp');
+            const api = this.httpService.get('https://mproxy.vn/capi/i5F0BO6PLGSh-IfhvLE20p1mLLU9qJLoMGo0hlWIW6I/key/urKK60FfLenBznL/resetIp');
+            const data = await (0, rxjs_1.lastValueFrom)(api);
+            console.log(222, data);
+        }
+        catch (error) { }
     }
 };
 exports.AppGateway = AppGateway;
@@ -49,9 +63,16 @@ __decorate([
     __metadata("design:paramtypes", [socket_io_1.Socket, Object]),
     __metadata("design:returntype", Promise)
 ], AppGateway.prototype, "handleRemovmessageseMessage", null);
+__decorate([
+    (0, schedule_1.Cron)('0 */1 * * * *'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AppGateway.prototype, "resetIp", null);
 exports.AppGateway = AppGateway = __decorate([
     (0, websockets_1.WebSocketGateway)({
         cors: true,
-    })
+    }),
+    __metadata("design:paramtypes", [axios_1.HttpService])
 ], AppGateway);
 //# sourceMappingURL=app.gateway.js.map

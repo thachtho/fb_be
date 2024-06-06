@@ -6,7 +6,7 @@ async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.setGlobalPrefix('api');
     app.enableCors({
-        origin: ['http://localhost:5000'],
+        origin: ['http://localhost:5000', 'http://159.65.131.243'],
         credentials: true,
     });
     await app.listen(3000);

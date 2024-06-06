@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+import { HttpService } from '@nestjs/axios';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import {
   OnGatewayConnection,
   OnGatewayDisconnect,
@@ -7,6 +9,7 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
+import { lastValueFrom } from 'rxjs';
 import { Server, Socket } from 'socket.io';
 import { Post } from 'src/Post/Post';
 
@@ -24,6 +27,7 @@ interface Message {
 export class AppGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
+  constructor(private readonly httpService: HttpService) {}
   @WebSocketServer() server: Server;
 
   afterInit(server: Server) {
@@ -54,5 +58,17 @@ export class AppGateway
 
       void this.server.emit('postMessage', posts);
     }
+  }
+
+  @Cron('0 */1 * * * *')
+  async resetIp() {
+    try {
+      console.log('reset ippppppppppp');
+      const api = this.httpService.get(
+        'https://mproxy.vn/capi/i5F0BO6PLGSh-IfhvLE20p1mLLU9qJLoMGo0hlWIW6I/key/urKK60FfLenBznL/resetIp',
+      );
+
+      const data = await lastValueFrom(api);
+    } catch (error) {}
   }
 }
