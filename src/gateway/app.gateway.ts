@@ -55,7 +55,7 @@ export class AppGateway
       posts.unshift({
         ...payload,
       });
-      void this.server.emit('postMessage', payload);
+      void this.server.emit('postMessage', posts);
     }
   }
 
