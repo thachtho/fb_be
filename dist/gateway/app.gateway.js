@@ -39,7 +39,7 @@ let AppGateway = class AppGateway {
             posts.unshift({
                 ...payload,
             });
-            void this.server.emit('postMessage', posts);
+            void this.server.emit('postMessage', payload);
         }
     }
     async resetIp() {
@@ -47,7 +47,6 @@ let AppGateway = class AppGateway {
             console.log('reset ippppppppppp');
             const api = this.httpService.get('https://mproxy.vn/capi/i5F0BO6PLGSh-IfhvLE20p1mLLU9qJLoMGo0hlWIW6I/key/urKK60FfLenBznL/resetIp');
             const data = await (0, rxjs_1.lastValueFrom)(api);
-            console.log(222, data);
         }
         catch (error) { }
     }
