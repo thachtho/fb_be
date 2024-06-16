@@ -16,6 +16,5 @@ export declare class AppGateway implements OnGatewayInit, OnGatewayConnection, O
     handleConnection(client: Socket): Promise<void>;
     handleDisconnect(client: Socket): void;
     handleRemovmessageseMessage(client: Socket, payload: Message): Promise<void>;
-    resetIp(): Promise<void>;
 }
 export {};

@@ -9,20 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppService = void 0;
-const axios_1 = require("@nestjs/axios");
+exports.DistanceController = void 0;
 const common_1 = require("@nestjs/common");
-let AppService = class AppService {
-    constructor(httpService) {
-        this.httpService = httpService;
+const distance_service_1 = require("./distance.service");
+let DistanceController = class DistanceController {
+    constructor(distanceService) {
+        this.distanceService = distanceService;
     }
-    getHello() {
-        return 'Hello World!';
+    getDistance() {
+        return this.distanceService.getDistance();
     }
 };
-exports.AppService = AppService;
-exports.AppService = AppService = __decorate([
-    (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [axios_1.HttpService])
-], AppService);
-//# sourceMappingURL=app.service.js.map
+exports.DistanceController = DistanceController;
+__decorate([
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], DistanceController.prototype, "getDistance", null);
+exports.DistanceController = DistanceController = __decorate([
+    (0, common_1.Controller)('distance'),
+    __metadata("design:paramtypes", [distance_service_1.DistanceService])
+], DistanceController);
+//# sourceMappingURL=distance.controller.js.map

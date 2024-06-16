@@ -8,16 +8,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
+const schedule_1 = require("@nestjs/schedule");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const gateway_modules_1 = require("./gateway/gateway.modules");
-const schedule_1 = require("@nestjs/schedule");
+const axios_1 = require("@nestjs/axios");
+const distance_module_1 = require("./distance/distance.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [gateway_modules_1.GatewayModules, schedule_1.ScheduleModule.forRoot()],
+        imports: [
+            gateway_modules_1.GatewayModules,
+            schedule_1.ScheduleModule.forRoot(),
+            axios_1.HttpModule.register({}),
+            distance_module_1.DistanceModule,
+        ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })
