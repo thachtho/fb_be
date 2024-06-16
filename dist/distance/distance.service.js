@@ -17,15 +17,25 @@ let DistanceService = class DistanceService {
     constructor(httpService) {
         this.httpService = httpService;
     }
-    async getDistance() {
+    async getDistance(location) {
+        if (!location) {
+            return null;
+        }
+        const { lat, long, address } = location;
+        const addressEncode = encodeURIComponent(address);
         try {
-            const api = this.httpService.get('https://www.google.com/maps/dir/16.0540029,+108.2090995/52%20Nguy%E1%BB%85n%20S%C6%A1n%2C%20Ho%C3%A0%20C%C6%B0%E1%BB%9Dng%20Nam%2C%20H%E1%BA%A3i%20Ch%C3%A2u%2C%20%C4%90%C3%A0%20N%E1%BA%B5ng%2C%20Vi%E1%BB%87t%20Nam');
+            const api = this.httpService.get(`https://www.google.com/maps/dir/${lat},+${long}/${addressEncode}`);
             const response = await (0, rxjs_1.lastValueFrom)(api);
             const data = JSON.stringify(response.data).substring(0, 40000);
             const distance = this.regexDistance(data);
-            return distance;
+            if (distance && distance.length > 0) {
+                return distance[0];
+            }
+            return null;
         }
-        catch (error) { }
+        catch (error) {
+            return null;
+        }
     }
     regexDistance(data) {
         const regex = /(\d+\.\d+ km)/g;
