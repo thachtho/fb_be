@@ -55,19 +55,7 @@ export class AppGateway
       posts.unshift({
         ...payload,
       });
-      void this.server.emit('postMessage', posts);
+      void this.server.emit('postMessage', payload);
     }
-  }
-
-  @Cron('0 */1 * * * *')
-  async resetIp() {
-    try {
-      console.log('reset ippppppppppp');
-      const api = this.httpService.get(
-        'https://mproxy.vn/capi/i5F0BO6PLGSh-IfhvLE20p1mLLU9qJLoMGo0hlWIW6I/key/urKK60FfLenBznL/resetIp',
-      );
-
-      const data = await lastValueFrom(api);
-    } catch (error) {}
   }
 }
