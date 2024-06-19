@@ -51,6 +51,7 @@ export class AppGateway
     const { localtion, ...props } = payload;
     const newPayload = { ...props, localtionStart: localtion?.pick_up, locationEnd: localtion?.drop_off }
 
+    console.log(11111, newPayload)
     if (!check) {
       if (posts.length === 20) {
         posts.pop();
