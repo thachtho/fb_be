@@ -7,5 +7,4 @@ export declare class DistanceService {
         long: any;
         address: string | null;
     }): Promise<any>;
-    regexDistance(data: string): any[];
 }

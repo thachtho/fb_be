@@ -1,6 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { lastValueFrom } from 'rxjs';
+import { regexDistance } from 'src/utils/distance';
 
 @Injectable()
 export class DistanceService {
@@ -19,26 +20,15 @@ export class DistanceService {
 
       const response = await lastValueFrom(api);
       const data = JSON.stringify(response.data).substring(0, 40000);
-      const distance = this.regexDistance(data);
 
+      const distance = regexDistance(data);
       if (distance && distance.length > 0) {
         return distance[0];
       }
       return null;
     } catch (error) {
+      console.log(3333, error)
       return null;
     }
-  }
-
-  regexDistance(data: string) {
-    const regex = /(\d+\.\d+ km)/g;
-    const results = [];
-    let match;
-    // Sử dụng vòng lặp để tìm tất cả các kết quả phù hợp
-    while ((match = regex.exec(data)) !== null) {
-      results.push(match[1]);
-    }
-
-    return results;
   }
 }

@@ -13,7 +13,7 @@ exports.AppGateway = void 0;
 const axios_1 = require("@nestjs/axios");
 const websockets_1 = require("@nestjs/websockets");
 const socket_io_1 = require("socket.io");
-const Post_1 = require("../Post/Post");
+const Post_1 = require("../static/Post");
 let AppGateway = class AppGateway {
     constructor(httpService) {
         this.httpService = httpService;

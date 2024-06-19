@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { HttpService } from '@nestjs/axios';
-import { Cron, CronExpression } from '@nestjs/schedule';
 import {
   OnGatewayConnection,
   OnGatewayDisconnect,
@@ -9,9 +8,9 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
-import { lastValueFrom } from 'rxjs';
 import { Server, Socket } from 'socket.io';
-import { Post } from 'src/Post/Post';
+import { Post } from 'src/static/Post';
+
 
 interface Message {
   name: string;
@@ -19,6 +18,9 @@ interface Message {
   content: string;
   created_at?: Date;
   userId?: string;
+  localtion?: any;
+  localtionStart?: string;
+  locationEnd?: string;
 }
 
 @WebSocketGateway({
@@ -46,6 +48,8 @@ export class AppGateway
   async handleRemovmessageseMessage(client: Socket, payload: Message) {
     const posts = Post.posts;
     const check = posts.find((item) => item.postId === payload.postId);
+    const { localtion, ...props } = payload;
+    const newPayload = { ...props, localtionStart: localtion?.pick_up, locationEnd: localtion?.drop_off }
 
     if (!check) {
       if (posts.length === 20) {
@@ -53,9 +57,9 @@ export class AppGateway
       }
 
       posts.unshift({
-        ...payload,
+        ...newPayload,
       });
-      void this.server.emit('postMessage', payload);
     }
+    void this.server.emit('postMessage', newPayload);
   }
 }
