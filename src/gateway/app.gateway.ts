@@ -18,9 +18,6 @@ interface Message {
   content: string;
   created_at?: Date;
   userId?: string;
-  localtion?: any;
-  localtionStart?: string;
-  locationEnd?: string;
 }
 
 @WebSocketGateway({
@@ -48,19 +45,16 @@ export class AppGateway
   async handleRemovmessageseMessage(client: Socket, payload: Message) {
     const posts = Post.posts;
     const check = posts.find((item) => item.postId === payload.postId);
-    const { localtion, ...props } = payload;
-    const newPayload = { ...props, localtionStart: localtion?.pick_up, locationEnd: localtion?.drop_off }
 
-    console.log(11111, newPayload)
     if (!check) {
       if (posts.length === 20) {
         posts.pop();
       }
 
       posts.unshift({
-        ...newPayload,
+        ...payload,
       });
+      void this.server.emit('postMessage', payload);
     }
-    void this.server.emit('postMessage', newPayload);
   }
 }
