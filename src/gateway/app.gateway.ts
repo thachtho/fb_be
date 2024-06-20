@@ -18,6 +18,7 @@ interface Message {
   content: string;
   created_at?: Date;
   userId?: string;
+  startNavigator?: any
 }
 
 @WebSocketGateway({
@@ -44,7 +45,7 @@ export class AppGateway
   @SubscribeMessage('message')
   async handleRemovmessageseMessage(client: Socket, payload: Message) {
     let posts = Post.posts;
-    const check = posts.find((item) => item.postId === payload.postId);
+    const check: any = posts.find((item) => item.postId === payload.postId);
 
     if (!check) {
       if (posts.length === 20) {
@@ -55,7 +56,8 @@ export class AppGateway
         ...payload,
       });
     } else {
-      posts = [...posts, payload]
+      check.startNavigator = payload.startNavigator
+      posts = [...posts]
     }
 
     void this.server.emit('postMessage', payload);
