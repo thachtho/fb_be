@@ -43,7 +43,7 @@ export class AppGateway
 
   @SubscribeMessage('message')
   async handleRemovmessageseMessage(client: Socket, payload: Message) {
-    const posts = Post.posts;
+    let posts = Post.posts;
     const check = posts.find((item) => item.postId === payload.postId);
 
     if (!check) {
@@ -54,6 +54,8 @@ export class AppGateway
       posts.unshift({
         ...payload,
       });
+    } else {
+      posts = [...posts, check]
     }
 
     void this.server.emit('postMessage', payload);
