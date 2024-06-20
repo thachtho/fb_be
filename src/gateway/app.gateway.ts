@@ -55,7 +55,7 @@ export class AppGateway
         ...payload,
       });
     } else {
-      posts = [...posts, check]
+      posts = [...posts, payload]
     }
 
     void this.server.emit('postMessage', payload);
