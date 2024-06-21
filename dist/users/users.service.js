@@ -27,7 +27,9 @@ let UsersService = class UsersService {
     }
     getUser() {
     }
-    findAll() {
+    async findAll() {
+        const api = this.httpService.get(`http://localhost:4000/users`);
+        return (await (0, rxjs_1.lastValueFrom)(api))?.data;
     }
     findOne(id) {
         return `This action returns a #${id} user`;

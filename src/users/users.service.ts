@@ -31,7 +31,12 @@ export class UsersService {
 
   }
 
-  findAll() {
+  async findAll() {
+    const api = this.httpService.get(
+      `http://localhost:4000/users`
+    );
+
+    return (await lastValueFrom(api))?.data;
   }
 
   findOne(id: number) {

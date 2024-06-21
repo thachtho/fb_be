@@ -24,7 +24,7 @@ export class UsersController {
   }
 
   @Get()
-  findAll(@Ip() ip: string) {
+  findAll() {
     return this.usersService.findAll();
   }
 
