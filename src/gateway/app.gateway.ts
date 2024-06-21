@@ -71,8 +71,8 @@ export class AppGateway
     if (payload.content.length === 0) {
       return;
     }
-    console.log(1111, payload)
+    // console.log(1111, payload)
 
-    void this.server.emit('postMessage', payload);
+    void this.server.emit('postMessage', posts);
   }
 }
