@@ -12,9 +12,10 @@ export class AuthService {
 
   async signIn(phone, pass, type: 'web' | 'mobile' = 'web') {
     const user = await this.usersService.findByPhone(phone) as any[];
-    
+
     if (user.length > 0) {
       const currentUser = user[0]
+
       if (currentUser?.password !== pass) {
         throw new UnauthorizedException();
       }
@@ -23,6 +24,7 @@ export class AuthService {
   
       return this.createToken(payload);
     }
+
 
     throw new UnauthorizedException();
   }

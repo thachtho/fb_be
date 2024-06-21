@@ -14,17 +14,22 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
+const guard_1 = require("../libs/guard/guard");
 const auth_service_1 = require("./auth.service");
 const login_dto_1 = require("./dto/login.dto");
-const guard_1 = require("../libs/guard/guard");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
     async signIn(signInDto, res) {
-        const { access_token, refresh_token } = await this.authService.signIn(signInDto.phone, signInDto.password, 'web');
-        res.setHeader('Set-Cookie', [`token=${access_token}; HttpOnly; Path=/`]);
-        return res.send({ refresh_token });
+        try {
+            const { access_token, refresh_token } = await this.authService.signIn(signInDto.phone, signInDto.password, 'web');
+            res.setHeader('Set-Cookie', [`token=${access_token}; HttpOnly; Path=/`]);
+            return res.send({ refresh_token });
+        }
+        catch (error) {
+            throw new common_1.HttpException('Lỗi login', 403);
+        }
     }
     async refreshToken(body, res) {
         const { refreshToken } = body;

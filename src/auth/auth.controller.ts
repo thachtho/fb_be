@@ -2,14 +2,15 @@ import {
   Body,
   Controller,
   HttpCode,
+  HttpException,
   HttpStatus,
   Post,
   Res
 } from '@nestjs/common';
 import { Response } from 'express';
+import { Public } from 'src/libs/guard/guard';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
-import { Public } from 'src/libs/guard/guard';
 
 @Controller('auth')
 @Public()
@@ -23,15 +24,19 @@ export class AuthController {
     @Res()
     res: Response,
   ) {
-    const { access_token, refresh_token } = await this.authService.signIn(
-      signInDto.phone,
-      signInDto.password,
-      'web',
-    );
+    try {
+      const { access_token, refresh_token } = await this.authService.signIn(
+        signInDto.phone,
+        signInDto.password,
+        'web',
+      );
 
-    res.setHeader('Set-Cookie', [`token=${access_token}; HttpOnly; Path=/`]);
+      res.setHeader('Set-Cookie', [`token=${access_token}; HttpOnly; Path=/`]);
 
-    return res.send({ refresh_token });
+      return res.send({ refresh_token });       
+    } catch (error) {
+      throw new HttpException('Lỗi login', 403)
+    }
   }
 
   @Post('refresh-token')

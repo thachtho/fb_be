@@ -5,6 +5,7 @@ export declare class UsersService {
     private readonly httpService;
     constructor(httpService: HttpService);
     create(createUserDto: CreateUserDto): Promise<any>;
+    getUser(): void;
     findAll(): void;
     findOne(id: number): string;
     update(id: number, updateUserDto: UpdateUserDto): string;

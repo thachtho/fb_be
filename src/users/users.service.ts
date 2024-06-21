@@ -15,11 +15,20 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
+    const userExit: any[] = await this.findByPhone(createUserDto.phone)
+
+    if (userExit.length > 0) {
+      throw new HttpException('Số điện thoại đã tồn tại!', 501)
+    }
     const api = this.httpService.post(
       `http://localhost:4000/users`, createUserDto
     );
 
     return (await lastValueFrom(api))?.data;
+  }
+
+  getUser() {
+
   }
 
   findAll() {

@@ -18,8 +18,14 @@ let UsersService = class UsersService {
         this.httpService = httpService;
     }
     async create(createUserDto) {
+        const userExit = await this.findByPhone(createUserDto.phone);
+        if (userExit.length > 0) {
+            throw new common_1.HttpException('Số điện thoại đã tồn tại!', 501);
+        }
         const api = this.httpService.post(`http://localhost:4000/users`, createUserDto);
         return (await (0, rxjs_1.lastValueFrom)(api))?.data;
+    }
+    getUser() {
     }
     findAll() {
     }
