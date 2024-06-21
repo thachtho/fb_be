@@ -63,15 +63,15 @@ export class AppGateway
         check.content = payload.content
       }
 
-      if (payload.name.length > 0) {
-        check.name = payload.name
+      if (payload?.name && payload.name.length > 0) {
+        check.name = payload?.name
       }
 
       posts = [...posts]
     }
 
 
-    if (payload.content.length === 0 || payload.name.length === 0) {
+    if (payload.content.length === 0 || !payload.name || (payload?.name.length === 0)) {
       return;
     }
     // console.log(1111, payload)
