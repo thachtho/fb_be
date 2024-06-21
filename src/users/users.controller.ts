@@ -51,6 +51,7 @@ export class UsersController {
   }
 
   @Patch('access-by-phone/:phone')
+  @Public()
   accessByPhone(@Param('phone') phone: string) {
     return this.usersService.accessByPhone(phone)
   }
