@@ -8,27 +8,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersService = void 0;
 const common_1 = require("@nestjs/common");
-const mongoose_1 = require("@nestjs/mongoose");
-const users_schema_1 = require("./schemas/users.schema");
-const mongoose_2 = require("mongoose");
+const axios_1 = require("@nestjs/axios");
+const rxjs_1 = require("rxjs");
 let UsersService = class UsersService {
-    constructor(usersModel) {
-        this.usersModel = usersModel;
+    constructor(httpService) {
+        this.httpService = httpService;
     }
-    create(createUserDto) {
-        return this.usersModel.create(createUserDto);
+    async create(createUserDto) {
+        const api = this.httpService.post(`http://localhost:4000/users`, createUserDto);
+        return (await (0, rxjs_1.lastValueFrom)(api))?.data;
     }
     findAll() {
-        return this.usersModel.create({
-            phone: '09633443269',
-            password: '111111',
-        });
     }
     findOne(id) {
         return `This action returns a #${id} user`;
@@ -39,16 +32,14 @@ let UsersService = class UsersService {
     remove(id) {
         return `This action removes a #${id} user`;
     }
-    findByPhone(phone) {
-        return this.usersModel.findOne({
-            phone,
-        });
+    async findByPhone(phone) {
+        const api = this.httpService.get(`http://localhost:4000/users?phone=${phone}`);
+        return (await (0, rxjs_1.lastValueFrom)(api))?.data;
     }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_1.InjectModel)(users_schema_1.Users.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __metadata("design:paramtypes", [axios_1.HttpService])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map

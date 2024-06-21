@@ -1,25 +1,28 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { UsersDocument, Users } from './schemas/users.schema';
 import { Model } from 'mongoose';
+import { HttpService } from '@nestjs/axios';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectModel(Users.name) private readonly usersModel: Model<UsersDocument>,
+    // @InjectModel(Users.name) private readonly usersModel: Model<UsersDocument>,
+    private readonly httpService: HttpService
   ) {}
 
-  create(createUserDto: CreateUserDto) {
-    return this.usersModel.create(createUserDto);
+  async create(createUserDto: CreateUserDto) {
+    const api = this.httpService.post(
+      `http://localhost:4000/users`, createUserDto
+    );
+
+    return (await lastValueFrom(api))?.data;
   }
 
   findAll() {
-    return this.usersModel.create({
-      phone: '09633443269',
-      password: '111111',
-    });
   }
 
   findOne(id: number) {
@@ -34,9 +37,11 @@ export class UsersService {
     return `This action removes a #${id} user`;
   }
 
-  findByPhone(phone: string) {
-    return this.usersModel.findOne({
-      phone,
-    });
+  async findByPhone(phone: string) {
+    const api = this.httpService.get(
+      `http://localhost:4000/users?phone=${phone}`
+    );
+
+    return (await lastValueFrom(api))?.data;
   }
 }

@@ -11,17 +11,23 @@ export class AuthService {
   ) {}
 
   async signIn(phone, pass, type: 'web' | 'mobile' = 'web') {
-    const user = await this.usersService.findByPhone(phone);
-
-    if (user?.password !== pass) {
-      throw new UnauthorizedException();
+    const user = await this.usersService.findByPhone(phone) as any[];
+    
+    if (user.length > 0) {
+      const currentUser = user[0]
+      if (currentUser?.password !== pass) {
+        throw new UnauthorizedException();
+      }
+      const payload = { userId: currentUser.id, phone: currentUser.phone, type };
+  
+  
+      return this.createToken(payload);
     }
-    const payload = { userId: user.id, email: user.phone, type };
 
-    return this.createToken(payload);
+    throw new UnauthorizedException();
   }
 
-  async createToken(payload: { email: string; userId: number; type: string }) {
+  async createToken(payload: { phone: string; userId: number; type: string }) {
     if (payload?.type === 'mobile') {
       return {
         access_token: await this.jwtService.signAsync(payload),
@@ -49,7 +55,7 @@ export class AuthService {
 
       const payload = {
         userId: decodedToken.userId,
-        email: decodedToken.email,
+        phone: decodedToken.phone,
         type: 'web',
       };
       const { access_token, refresh_token } = await this.createToken(payload);

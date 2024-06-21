@@ -10,7 +10,7 @@ export declare class AuthService {
         refresh_token: string;
     }>;
     createToken(payload: {
-        email: string;
+        phone: string;
         userId: number;
         type: string;
     }): Promise<{

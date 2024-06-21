@@ -12,6 +12,7 @@ const auth_service_1 = require("./auth.service");
 const auth_controller_1 = require("./auth.controller");
 const jwt_1 = require("@nestjs/jwt");
 const users_module_1 = require("../users/users.module");
+const axios_1 = require("@nestjs/axios");
 exports.jwtConstants = {
     secret: 'DO NOT USE THIS VALUE. INSTEAD, CREATE A COMPLEX SECRET AND KEEP IT SAFE OUTSIDE OF THE SOURCE CODE.',
 };
@@ -26,6 +27,7 @@ exports.AuthModule = AuthModule = __decorate([
                 global: true,
                 secret: exports.jwtConstants.secret,
             }),
+            axios_1.HttpModule.register({})
         ],
         controllers: [auth_controller_1.AuthController],
         providers: [auth_service_1.AuthService],

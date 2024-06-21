@@ -14,6 +14,10 @@ const app_service_1 = require("./app.service");
 const gateway_modules_1 = require("./gateway/gateway.modules");
 const axios_1 = require("@nestjs/axios");
 const distance_module_1 = require("./distance/distance.module");
+const users_module_1 = require("./users/users.module");
+const auth_module_1 = require("./auth/auth.module");
+const core_1 = require("@nestjs/core");
+const auth_guard_1 = require("./auth/auth.guard");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -24,9 +28,15 @@ exports.AppModule = AppModule = __decorate([
             schedule_1.ScheduleModule.forRoot(),
             axios_1.HttpModule.register({}),
             distance_module_1.DistanceModule,
+            users_module_1.UsersModule,
+            auth_module_1.AuthModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService,
+            {
+                provide: core_1.APP_GUARD,
+                useClass: auth_guard_1.AuthGuard,
+            }
         ],
     })
 ], AppModule);
