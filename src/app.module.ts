@@ -17,11 +17,11 @@ import { AuthGuard } from './auth/auth.guard';
     ScheduleModule.forRoot(),
     HttpModule.register({}),
     DistanceModule,
-    UsersModule,
-    AuthModule,
-    MongooseModule.forRoot('mongodb+srv://buithanhtho31ig:bHVCkgHfEBBFi6FM@cluster0.2d5twje.mongodb.net/', {
-      dbName: 'fb',
-    })
+    // UsersModule,
+    // AuthModule,
+    // MongooseModule.forRoot('mongodb+srv://buithanhtho31ig:bHVCkgHfEBBFi6FM@cluster0.2d5twje.mongodb.net/', {
+    //   dbName: 'fb',
+    // })
   ],
   controllers: [AppController],
   providers: [AppService,
