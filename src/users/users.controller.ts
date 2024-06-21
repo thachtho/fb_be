@@ -43,8 +43,13 @@ export class UsersController {
     return this.usersService.remove(+id);
   }
 
-  @Patch('access/:id')
+  @Patch('access-by-id/:id')
   access(@Param('id') id: string) {
-    return this.usersService.access(id)
+    return this.usersService.accessById(id)
+  }
+
+  @Patch('access-by-phone/:phone')
+  accessByPhone(@Param('phone') phone: string) {
+    return this.usersService.accessByPhone(phone)
   }
 }

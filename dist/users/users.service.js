@@ -42,11 +42,18 @@ let UsersService = class UsersService {
         const api = this.httpService.get(`http://localhost:4000/users?phone=${phone}`);
         return (await (0, rxjs_1.lastValueFrom)(api))?.data;
     }
-    async access(id) {
+    async accessById(id) {
         const api = this.httpService.patch(`http://localhost:4000/users/${id}`, {
             access: true
         });
         return (await (0, rxjs_1.lastValueFrom)(api))?.data;
+    }
+    async accessByPhone(phone) {
+        const user = await this.findByPhone(phone);
+        if (user.length > 0) {
+            return this.accessById(user[0].id);
+        }
+        throw new common_1.HttpException('Không tìm thấy User!', 500);
     }
 };
 exports.UsersService = UsersService;

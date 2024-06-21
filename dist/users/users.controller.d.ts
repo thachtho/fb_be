@@ -10,4 +10,5 @@ export declare class UsersController {
     update(id: string, updateUserDto: UpdateUserDto): string;
     remove(id: string): string;
     access(id: string): Promise<any>;
+    accessByPhone(phone: string): Promise<any>;
 }

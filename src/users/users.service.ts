@@ -54,7 +54,7 @@ export class UsersService {
     return (await lastValueFrom(api))?.data;
   }
 
-  async access(id: string) {
+  async accessById(id: string) {
     const api = this.httpService.patch(
       `http://localhost:4000/users/${id}`, {
         access: true
@@ -62,5 +62,15 @@ export class UsersService {
     );
 
     return (await lastValueFrom(api))?.data;
+  }
+
+  async accessByPhone(phone: string) {
+    const user: any[] = await this.findByPhone(phone);
+
+    if (user.length > 0) {
+      return this.accessById(user[0].id)
+    }
+
+    throw new HttpException('Không tìm thấy User!', 500)
   }
 }

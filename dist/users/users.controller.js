@@ -37,7 +37,10 @@ let UsersController = class UsersController {
         return this.usersService.remove(+id);
     }
     access(id) {
-        return this.usersService.access(id);
+        return this.usersService.accessById(id);
+    }
+    accessByPhone(phone) {
+        return this.usersService.accessByPhone(phone);
     }
 };
 exports.UsersController = UsersController;
@@ -78,12 +81,19 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "remove", null);
 __decorate([
-    (0, common_1.Patch)('access/:id'),
+    (0, common_1.Patch)('access-by-id/:id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "access", null);
+__decorate([
+    (0, common_1.Patch)('access-by-phone/:phone'),
+    __param(0, (0, common_1.Param)('phone')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "accessByPhone", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])
