@@ -57,7 +57,9 @@ export class AppGateway
         ...payload,
       });
     } else {
-      check.startNavigator = payload.startNavigator
+      if(payload.startNavigator) {
+        check.startNavigator = payload.startNavigator
+      }
       if (payload.content.length > 0) {
         check.content = payload.content
       }
