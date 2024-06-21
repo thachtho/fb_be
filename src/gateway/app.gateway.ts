@@ -71,11 +71,11 @@ export class AppGateway
     }
 
 
-    if (payload.content.length === 0 || !payload.name || (payload?.name.length === 0)) {
-      return;
-    }
+    // if (payload.content.length === 0 || !payload.name || (payload?.name.length === 0)) {
+    //   return;
+    // }
     // console.log(1111, payload)
 
-    void this.server.emit('postMessage', posts);
+    void this.server.emit('postMessage', payload);
   }
 }
