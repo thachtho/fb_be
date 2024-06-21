@@ -66,6 +66,8 @@ export class AppGateway
 
       posts = [...posts]
     }
+
+    console.log(1111, payload)
     if (payload.content.length === 0) {
       return;
     }
