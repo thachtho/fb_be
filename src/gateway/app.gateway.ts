@@ -58,7 +58,11 @@ export class AppGateway
       });
     } else {
       check.startNavigator = payload.startNavigator
+      check.content = payload.content
       posts = [...posts]
+    }
+    if (payload.content.length === 0) {
+      return;
     }
 
     void this.server.emit('postMessage', payload);
