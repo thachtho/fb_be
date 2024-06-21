@@ -44,7 +44,6 @@ export class AppGateway
 
   @SubscribeMessage('message')
   async handleRemovmessageseMessage(client: Socket, payload: Message) {
-    payload.content = payload.content.replace('Đơn này Ăn Cắp từ GOJO: Nội dung đơn như sau (có thể đúng có thể sai, hên xui nge.):', '')
     let posts = Post.posts;
     const check: any = posts.find((item) => item.postId === payload.postId);
 
