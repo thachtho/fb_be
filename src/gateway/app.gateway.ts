@@ -58,7 +58,10 @@ export class AppGateway
       });
     } else {
       check.startNavigator = payload.startNavigator
-      check.content = payload.content
+      if (payload.content.length > 0) {
+        check.content = payload.content
+      }
+
       posts = [...posts]
     }
     if (payload.content.length === 0) {
