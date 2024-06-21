@@ -57,7 +57,7 @@ export class AppGateway
         ...payload,
       });
     } else {
-      if(payload.startNavigator) {
+      if(payload?.startNavigator) {
         check.startNavigator = payload.startNavigator
       }
       if (payload.content.length > 0) {
@@ -67,10 +67,11 @@ export class AppGateway
       posts = [...posts]
     }
 
-    console.log(1111, payload)
+
     if (payload.content.length === 0) {
       return;
     }
+    console.log(1111, payload)
 
     void this.server.emit('postMessage', payload);
   }
