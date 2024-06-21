@@ -17,8 +17,6 @@ const distance_module_1 = require("./distance/distance.module");
 const mongoose_1 = require("@nestjs/mongoose");
 const users_module_1 = require("./users/users.module");
 const auth_module_1 = require("./auth/auth.module");
-const core_1 = require("@nestjs/core");
-const auth_guard_1 = require("./auth/auth.guard");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -37,10 +35,6 @@ exports.AppModule = AppModule = __decorate([
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService,
-            {
-                provide: core_1.APP_GUARD,
-                useClass: auth_guard_1.AuthGuard,
-            }
         ],
     })
 ], AppModule);
