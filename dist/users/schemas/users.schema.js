@@ -17,23 +17,11 @@ exports.Users = Users;
 __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
-], Users.prototype, "firstName", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], Users.prototype, "lastName", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], Users.prototype, "nickName", void 0);
+], Users.prototype, "phone", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], Users.prototype, "password", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], Users.prototype, "email", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ default: 0 }),
     __metadata("design:type", Number)

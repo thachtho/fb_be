@@ -10,19 +10,10 @@ export type UsersDocument = HydratedDocument<Users>;
 })
 export class Users {
   @Prop()
-  firstName: string;
-
-  @Prop()
-  lastName: string;
-
-  @Prop()
-  nickName: string;
+  phone: string
 
   @Prop()
   password: string;
-
-  @Prop()
-  email: string;
 
   @Prop({ default: 0 })
   role?: number;

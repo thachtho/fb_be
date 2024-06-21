@@ -22,15 +22,12 @@ let UsersService = class UsersService {
         this.usersModel = usersModel;
     }
     create(createUserDto) {
-        return 'This action adds a new user';
+        return this.usersModel.create(createUserDto);
     }
     findAll() {
         return this.usersModel.create({
-            firstName: 'tho',
-            lastName: 'bui',
-            email: 'buithanhtho14ig@gmail.com',
+            phone: '09633443269',
             password: '111111',
-            nickName: 'thobui',
         });
     }
     findOne(id) {
@@ -42,9 +39,9 @@ let UsersService = class UsersService {
     remove(id) {
         return `This action removes a #${id} user`;
     }
-    findByEmail(email) {
+    findByPhone(phone) {
         return this.usersModel.findOne({
-            email,
+            phone,
         });
     }
 };

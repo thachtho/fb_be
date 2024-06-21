@@ -12,16 +12,13 @@ export class UsersService {
   ) {}
 
   create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+    return this.usersModel.create(createUserDto);
   }
 
   findAll() {
     return this.usersModel.create({
-      firstName: 'tho',
-      lastName: 'bui',
-      email: 'buithanhtho14ig@gmail.com',
+      phone: '09633443269',
       password: '111111',
-      nickName: 'thobui',
     });
   }
 
@@ -37,9 +34,9 @@ export class UsersService {
     return `This action removes a #${id} user`;
   }
 
-  findByEmail(email: string) {
+  findByPhone(phone: string) {
     return this.usersModel.findOne({
-      email,
+      phone,
     });
   }
 }

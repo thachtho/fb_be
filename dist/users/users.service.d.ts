@@ -29,7 +29,13 @@ import { Model } from 'mongoose';
 export declare class UsersService {
     private readonly usersModel;
     constructor(usersModel: Model<UsersDocument>);
-    create(createUserDto: CreateUserDto): string;
+    create(createUserDto: CreateUserDto): Promise<import("mongoose").Document<unknown, {}, import("mongoose").Document<unknown, {}, Users> & Users & {
+        _id: import("mongoose").Types.ObjectId;
+    }> & import("mongoose").Document<unknown, {}, Users> & Users & {
+        _id: import("mongoose").Types.ObjectId;
+    } & Required<{
+        _id: import("mongoose").Types.ObjectId;
+    }>>;
     findAll(): Promise<import("mongoose").Document<unknown, {}, import("mongoose").Document<unknown, {}, Users> & Users & {
         _id: import("mongoose").Types.ObjectId;
     }> & import("mongoose").Document<unknown, {}, Users> & Users & {
@@ -40,7 +46,7 @@ export declare class UsersService {
     findOne(id: number): string;
     update(id: number, updateUserDto: UpdateUserDto): string;
     remove(id: number): string;
-    findByEmail(email: string): import("mongoose").Query<import("mongoose").Document<unknown, {}, import("mongoose").Document<unknown, {}, Users> & Users & {
+    findByPhone(phone: string): import("mongoose").Query<import("mongoose").Document<unknown, {}, import("mongoose").Document<unknown, {}, Users> & Users & {
         _id: import("mongoose").Types.ObjectId;
     }> & import("mongoose").Document<unknown, {}, Users> & Users & {
         _id: import("mongoose").Types.ObjectId;

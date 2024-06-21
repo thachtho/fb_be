@@ -18,15 +18,12 @@ let AuthService = class AuthService {
         this.usersService = usersService;
         this.jwtService = jwtService;
     }
-    register(auth) {
-        return this.usersService.create(auth);
-    }
-    async signIn(email, pass, type = 'web') {
-        const user = await this.usersService.findByEmail(email);
+    async signIn(phone, pass, type = 'web') {
+        const user = await this.usersService.findByPhone(phone);
         if (user?.password !== pass) {
             throw new common_1.UnauthorizedException();
         }
-        const payload = { userId: user.id, email: user.email, type };
+        const payload = { userId: user.id, email: user.phone, type };
         return this.createToken(payload);
     }
     async createToken(payload) {

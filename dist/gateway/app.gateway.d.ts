@@ -7,6 +7,7 @@ interface Message {
     content: string;
     created_at?: Date;
     userId?: string;
+    startNavigator?: any;
 }
 export declare class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
     private readonly httpService;

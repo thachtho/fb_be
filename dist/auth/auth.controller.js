@@ -15,30 +15,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
-const create_auth_dto_1 = require("./dto/create-auth.dto");
 const login_dto_1 = require("./dto/login.dto");
+const guard_1 = require("../libs/guard/guard");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
     async signIn(signInDto, res) {
-        const { access_token, refresh_token } = await this.authService.signIn(signInDto.email, signInDto.password, 'web');
+        const { access_token, refresh_token } = await this.authService.signIn(signInDto.phone, signInDto.password, 'web');
         res.setHeader('Set-Cookie', [`token=${access_token}; HttpOnly; Path=/`]);
         return res.send({ refresh_token });
-    }
-    register(createUserDto) {
-        return this.authService.register(createUserDto);
     }
     async refreshToken(body, res) {
         const { refreshToken } = body;
         return this.authService.refreshToken(refreshToken, res);
-    }
-    async signInMobile(signInDto) {
-        console.log(2222, signInDto);
-        const { access_token, refresh_token } = await this.authService.signIn(signInDto.email, signInDto.password, 'mobile');
-        return {
-            access_token,
-        };
     }
 };
 exports.AuthController = AuthController;
@@ -52,13 +42,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "signIn", null);
 __decorate([
-    (0, common_1.Post)('register'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_auth_dto_1.CreateAuthDto]),
-    __metadata("design:returntype", void 0)
-], AuthController.prototype, "register", null);
-__decorate([
     (0, common_1.Post)('refresh-token'),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)()),
@@ -66,15 +49,9 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "refreshToken", null);
-__decorate([
-    (0, common_1.Post)('login/mobile'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [login_dto_1.LoginDto]),
-    __metadata("design:returntype", Promise)
-], AuthController.prototype, "signInMobile", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
+    (0, guard_1.Public)(),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

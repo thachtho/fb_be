@@ -28,7 +28,7 @@ let AppGateway = class AppGateway {
         console.log('Ngat ket noi!.', client.id);
     }
     async handleRemovmessageseMessage(client, payload) {
-        const posts = Post_1.Post.posts;
+        let posts = Post_1.Post.posts;
         const check = posts.find((item) => item.postId === payload.postId);
         if (!check) {
             if (posts.length === 20) {
@@ -37,8 +37,20 @@ let AppGateway = class AppGateway {
             posts.unshift({
                 ...payload,
             });
-            void this.server.emit('postMessage', payload);
         }
+        else {
+            if (payload?.startNavigator) {
+                check.startNavigator = payload.startNavigator;
+            }
+            if (payload.content.length > 0) {
+                check.content = payload.content;
+            }
+            if (payload?.name && payload.name.length > 0) {
+                check.name = payload?.name;
+            }
+            posts = [...posts];
+        }
+        void this.server.emit('postMessage', payload);
     }
 };
 exports.AppGateway = AppGateway;
