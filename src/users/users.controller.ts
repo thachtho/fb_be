@@ -42,4 +42,9 @@ export class UsersController {
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
   }
+
+  @Patch('access/:id')
+  access(@Param('id') id: string) {
+    return this.usersService.access(id)
+  }
 }

@@ -42,6 +42,12 @@ let UsersService = class UsersService {
         const api = this.httpService.get(`http://localhost:4000/users?phone=${phone}`);
         return (await (0, rxjs_1.lastValueFrom)(api))?.data;
     }
+    async access(id) {
+        const api = this.httpService.patch(`http://localhost:4000/users/${id}`, {
+            access: true
+        });
+        return (await (0, rxjs_1.lastValueFrom)(api))?.data;
+    }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([

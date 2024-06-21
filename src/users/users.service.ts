@@ -53,4 +53,14 @@ export class UsersService {
 
     return (await lastValueFrom(api))?.data;
   }
+
+  async access(id: string) {
+    const api = this.httpService.patch(
+      `http://localhost:4000/users/${id}`, {
+        access: true
+      }
+    );
+
+    return (await lastValueFrom(api))?.data;
+  }
 }

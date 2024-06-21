@@ -22,14 +22,9 @@ let AuthController = class AuthController {
         this.authService = authService;
     }
     async signIn(signInDto, res) {
-        try {
-            const { access_token, refresh_token } = await this.authService.signIn(signInDto.phone, signInDto.password, 'web');
-            res.setHeader('Set-Cookie', [`token=${access_token}; HttpOnly; Path=/`]);
-            return res.send({ refresh_token });
-        }
-        catch (error) {
-            throw new common_1.HttpException('Lỗi login', 403);
-        }
+        const { access_token, refresh_token } = await this.authService.signIn(signInDto.phone, signInDto.password, 'web');
+        res.setHeader('Set-Cookie', [`token=${access_token}; HttpOnly; Path=/`]);
+        return res.send({ refresh_token });
     }
     async refreshToken(body, res) {
         const { refreshToken } = body;

@@ -23,12 +23,15 @@ let AuthService = class AuthService {
         if (user.length > 0) {
             const currentUser = user[0];
             if (currentUser?.password !== pass) {
-                throw new common_1.UnauthorizedException();
+                throw new common_1.HttpException('Mật khẩu không đúng', 403);
+            }
+            if (!currentUser?.access) {
+                throw new common_1.HttpException('Vào nhóm Zalo ở dưới thông báo lên nhóm để được duyệt miễn phí', 403);
             }
             const payload = { userId: currentUser.id, phone: currentUser.phone, type };
             return this.createToken(payload);
         }
-        throw new common_1.UnauthorizedException();
+        throw new common_1.HttpException('Tên tài khoản không đúng', 403);
     }
     async createToken(payload) {
         if (payload?.type === 'mobile') {

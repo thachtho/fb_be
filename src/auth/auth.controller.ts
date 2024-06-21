@@ -24,19 +24,15 @@ export class AuthController {
     @Res()
     res: Response,
   ) {
-    try {
-      const { access_token, refresh_token } = await this.authService.signIn(
-        signInDto.phone,
-        signInDto.password,
-        'web',
-      );
+    const { access_token, refresh_token } = await this.authService.signIn(
+      signInDto.phone,
+      signInDto.password,
+      'web',
+    );
 
-      res.setHeader('Set-Cookie', [`token=${access_token}; HttpOnly; Path=/`]);
+    res.setHeader('Set-Cookie', [`token=${access_token}; HttpOnly; Path=/`]);
 
-      return res.send({ refresh_token });       
-    } catch (error) {
-      throw new HttpException('Lỗi login', 403)
-    }
+    return res.send({ refresh_token });       
   }
 
   @Post('refresh-token')

@@ -11,4 +11,5 @@ export declare class UsersService {
     update(id: number, updateUserDto: UpdateUserDto): string;
     remove(id: number): string;
     findByPhone(phone: string): Promise<any>;
+    access(id: string): Promise<any>;
 }
