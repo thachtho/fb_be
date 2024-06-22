@@ -47,8 +47,12 @@ export class UsersService {
     return `This action updates a #${id} user`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    const api = this.httpService.delete(
+      `http://localhost:4000/users/${id}`
+    );
+
+    return (await lastValueFrom(api))?.data;
   }
 
   async findByPhone(phone: string) {

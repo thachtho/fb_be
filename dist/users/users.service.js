@@ -37,8 +37,9 @@ let UsersService = class UsersService {
     update(id, updateUserDto) {
         return `This action updates a #${id} user`;
     }
-    remove(id) {
-        return `This action removes a #${id} user`;
+    async remove(id) {
+        const api = this.httpService.delete(`http://localhost:4000/users/${id}`);
+        return (await (0, rxjs_1.lastValueFrom)(api))?.data;
     }
     async findByPhone(phone) {
         const api = this.httpService.get(`http://localhost:4000/users?phone=${phone}`);

@@ -9,7 +9,7 @@ export declare class UsersService {
     findAll(): Promise<any>;
     findOne(id: number): string;
     update(id: number, updateUserDto: UpdateUserDto): string;
-    remove(id: number): string;
+    remove(id: string): Promise<any>;
     findByPhone(phone: string): Promise<any>;
     accessById(id: string): Promise<any>;
     accessByPhone(phone: string): Promise<any>;

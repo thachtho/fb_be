@@ -8,7 +8,7 @@ export declare class UsersController {
     findAll(): Promise<any>;
     findOne(id: string): string;
     update(id: string, updateUserDto: UpdateUserDto): string;
-    remove(id: string): string;
+    remove(id: string): Promise<any>;
     access(id: string): Promise<any>;
     accessByPhone(phone: string): Promise<any>;
 }

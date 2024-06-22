@@ -37,6 +37,7 @@ let AppGateway = class AppGateway {
             posts.unshift({
                 ...payload,
             });
+            void this.server.emit('postMessage', payload);
         }
         else {
             if (payload?.startNavigator) {
@@ -50,7 +51,6 @@ let AppGateway = class AppGateway {
             }
             posts = [...posts];
         }
-        void this.server.emit('postMessage', payload);
     }
 };
 exports.AppGateway = AppGateway;
