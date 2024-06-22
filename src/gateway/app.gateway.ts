@@ -44,8 +44,8 @@ export class AppGateway
 
   @SubscribeMessage('message')
   async handleRemovmessageseMessage(client: Socket, payload: Message) {
-    if (payload.content === 'Người tham gia ẩn danh') {
-      payload.content = 'Ẩn danh'
+    if (payload.name === 'Người tham gia ẩn danh') {
+      payload.name = '[Ẩn danh - Nguy Hiểm]'
     }
     let posts = Post.posts;
     const check: any = posts.find((item) => item.postId === payload.postId);
