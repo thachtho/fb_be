@@ -39,8 +39,12 @@ export class UsersService {
     return (await lastValueFrom(api))?.data;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string) {
+    const api = this.httpService.get(
+      `http://localhost:4000/users/${id}`
+    );
+  
+    return (await lastValueFrom(api))?.data
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

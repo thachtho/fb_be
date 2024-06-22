@@ -25,10 +25,8 @@ export class AuthService {
 
       const payload = { userId: currentUser.id, phone: currentUser.phone, type };
   
-  
       return this.createToken(payload);
     }
-
 
     throw new HttpException('Tên tài khoản không đúng', 403)
   }

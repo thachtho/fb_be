@@ -31,8 +31,9 @@ let UsersService = class UsersService {
         const api = this.httpService.get(`http://localhost:4000/users`);
         return (await (0, rxjs_1.lastValueFrom)(api))?.data;
     }
-    findOne(id) {
-        return `This action returns a #${id} user`;
+    async findOne(id) {
+        const api = this.httpService.get(`http://localhost:4000/users/${id}`);
+        return (await (0, rxjs_1.lastValueFrom)(api))?.data;
     }
     update(id, updateUserDto) {
         return `This action updates a #${id} user`;

@@ -20,20 +20,18 @@ export class UsersController {
   ) {}
 
   @Post()
-  @Public()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
   @Get()
-  @Public()
   findAll() {
     return this.usersService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  @Get('/phone/:phone')
+  findByPhone(@Param('phone') phone: string) {
+    return this.usersService.findByPhone(phone);
   }
 
   @Patch(':id')
@@ -52,7 +50,6 @@ export class UsersController {
   }
 
   @Patch('access-by-phone/:phone')
-  @Public()
   accessByPhone(@Param('phone') phone: string) {
     return this.usersService.accessByPhone(phone)
   }
