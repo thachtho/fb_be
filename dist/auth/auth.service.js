@@ -70,6 +70,9 @@ let AuthService = class AuthService {
             return res.status(402).json({ message: 'Refresh token đã hết hạn' });
         }
     }
+    register(createUserDto) {
+        return this.usersService.create(createUserDto);
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([

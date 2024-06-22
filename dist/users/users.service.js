@@ -10,8 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersService = void 0;
-const common_1 = require("@nestjs/common");
 const axios_1 = require("@nestjs/axios");
+const common_1 = require("@nestjs/common");
 const rxjs_1 = require("rxjs");
 let UsersService = class UsersService {
     constructor(httpService) {

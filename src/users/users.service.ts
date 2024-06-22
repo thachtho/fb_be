@@ -1,11 +1,8 @@
+import { HttpService } from '@nestjs/axios';
 import { HttpException, Injectable } from '@nestjs/common';
+import { lastValueFrom } from 'rxjs';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { InjectModel } from '@nestjs/mongoose';
-import { UsersDocument, Users } from './schemas/users.schema';
-import { Model } from 'mongoose';
-import { HttpService } from '@nestjs/axios';
-import { lastValueFrom } from 'rxjs';
 
 @Injectable()
 export class UsersService {

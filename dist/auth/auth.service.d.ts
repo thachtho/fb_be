@@ -1,5 +1,6 @@
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UsersService } from 'src/users/users.service';
 export declare class AuthService {
     private usersService;
@@ -18,4 +19,5 @@ export declare class AuthService {
         refresh_token: string;
     }>;
     refreshToken(refreshToken: string, res: Response): Promise<Response<any, Record<string, any>>>;
+    register(createUserDto: CreateUserDto): Promise<any>;
 }

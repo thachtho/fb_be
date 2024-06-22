@@ -1,6 +1,7 @@
 import { HttpException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UsersService } from 'src/users/users.service';
 
 @Injectable()
@@ -70,5 +71,9 @@ export class AuthService {
     } catch (error) {
       return res.status(402).json({ message: 'Refresh token đã hết hạn' });
     }
+  }
+
+  register(createUserDto: CreateUserDto) {
+    return this.usersService.create(createUserDto)
   }
 }

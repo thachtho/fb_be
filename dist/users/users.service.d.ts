@@ -1,6 +1,6 @@
+import { HttpService } from '@nestjs/axios';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { HttpService } from '@nestjs/axios';
 export declare class UsersService {
     private readonly httpService;
     constructor(httpService: HttpService);

@@ -11,6 +11,7 @@ import { Response } from 'express';
 import { Public } from 'src/libs/guard/guard';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 
 @Controller('auth')
 @Public()
@@ -43,5 +44,10 @@ export class AuthController {
   ) {
     const { refreshToken } = body;
     return this.authService.refreshToken(refreshToken, res);
+  }
+
+  @Post('/register')
+  register(@Body() createUserDto: CreateUserDto) {
+    return this.authService.register(createUserDto);
   }
 }
