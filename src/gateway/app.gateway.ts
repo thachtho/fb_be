@@ -55,6 +55,8 @@ export class AppGateway
       posts.unshift({
         ...payload,
       });
+
+      void this.server.emit('postMessage', payload);
     } else {
       if(payload?.startNavigator) {
         check.startNavigator = payload.startNavigator
@@ -76,6 +78,6 @@ export class AppGateway
     // }
     // console.log(1111, payload)
 
-    void this.server.emit('postMessage', payload);
+
   }
 }
