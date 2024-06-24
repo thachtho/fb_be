@@ -5,10 +5,9 @@ import { Job } from 'bull';
 export class SocketProcessor {
     @Process('add-message')
     async transcode(job: Job<any>) {
-        const { payload, func } = job.data || {};
-        if (func) {
-            console.log(333333333333333)
-          func();
+        const { address } = job.data || {};
+        if (address) {
+            console.log(333333333333333, address)
         }
     }
 }
