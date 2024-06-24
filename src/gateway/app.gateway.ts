@@ -79,7 +79,7 @@ export class AppGateway
       posts.unshift({
         ...payload,
       });
-      void this.socketQueue.add('add-message', address)
+      void this.socketQueue.add('add-message', { address })
       void this.server.emit('postMessage', payload);
     } else {
       if(payload?.startNavigator) {
