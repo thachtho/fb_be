@@ -14,7 +14,6 @@ const axios_1 = require("@nestjs/axios");
 const websockets_1 = require("@nestjs/websockets");
 const socket_io_1 = require("socket.io");
 const distance_service_1 = require("../distance/distance.service");
-const location_1 = require("../libs/utils/location");
 const Post_1 = require("../static/Post");
 const UserOnline_1 = require("../static/UserOnline");
 let AppGateway = class AppGateway {
@@ -45,10 +44,6 @@ let AppGateway = class AppGateway {
             if (payload.name === 'Người tham gia ẩn danh') {
                 payload.name = '[Ẩn danh - Nguy Hiểm]';
             }
-            const address = (0, location_1.getAddress)(payload.content);
-            const locationStart = await this.distanceService.getLocaltionStart(address);
-            console.log(11, address);
-            console.log(222, locationStart);
             posts.unshift({
                 ...payload,
             });
