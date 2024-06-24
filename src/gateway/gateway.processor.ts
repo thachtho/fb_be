@@ -7,7 +7,7 @@ export class SocketProcessor {
     async transcode(job: Job<any>) {
         const { payload, func } = job.data || {};
         if (func) {
-            console.log(11, payload)
+            console.log(333333333333333)
           func();
         }
     }
