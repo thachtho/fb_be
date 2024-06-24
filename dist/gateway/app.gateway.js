@@ -26,11 +26,17 @@ let AppGateway = class AppGateway {
     }
     async handleConnection(client) {
         const phone = client.handshake?.query?.phone;
-        console.log(111, phone);
+        if (phone) {
+            this.addUser({ phone, socketId: client.id });
+        }
         console.log('connectionnnnnnnnnnnn');
     }
     handleDisconnect(client) {
         console.log('Ngat ket noi!.', client.id);
+        const phone = client.handshake?.query?.phone;
+        if (phone) {
+            return this.removeUser(phone);
+        }
     }
     async handleRemovmessageseMessage(client, payload) {
         if (payload.name === 'Người tham gia ẩn danh') {

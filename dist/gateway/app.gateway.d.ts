@@ -22,7 +22,7 @@ export declare class AppGateway implements OnGatewayInit, OnGatewayConnection, O
     server: Server;
     afterInit(server: Server): void;
     handleConnection(client: Socket): Promise<void>;
-    handleDisconnect(client: Socket): void;
+    handleDisconnect(client: Socket): Promise<any>;
     handleRemovmessageseMessage(client: Socket, payload: Message): Promise<void>;
     addUser(user: IClientSocketUser): Promise<any>;
     removeUser(phone: string): Promise<any>;

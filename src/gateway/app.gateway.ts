@@ -45,21 +45,20 @@ export class AppGateway
 
   async handleConnection(client: Socket) {
     const phone = client.handshake?.query?.phone as string;
-    console.log(111, phone)
-    // if (phone) {
-    //   this.addUser({ phone, socketId: client.id });
-    // }
-    console.log('connectionnnnnnnnnnnn');
 
+    if (phone) {
+      this.addUser({ phone, socketId: client.id });
+    }
+    console.log('connectionnnnnnnnnnnn');
   }
 
   handleDisconnect(client: Socket) {
     console.log('Ngat ket noi!.', client.id);
-    // const phone = client.handshake?.query?.phone as string;
+    const phone = client.handshake?.query?.phone as string;
 
-    // if (phone) {
-    //   return this.removeUser(phone);
-    // }
+    if (phone) {
+      return this.removeUser(phone);
+    }
   }
 
   @SubscribeMessage('message')
