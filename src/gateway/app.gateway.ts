@@ -70,15 +70,13 @@ export class AppGateway
       if (payload.name === 'Người tham gia ẩn danh') {
         payload.name = '[Ẩn danh - Nguy Hiểm]'
       }
-      const address = getAddress(payload.content);
       // const locationStart = await this.distanceService.getLocaltionStart(address)
       // console.log(11, address)
       // console.log(222, locationStart)
       posts.unshift({
         ...payload,
       });
-      void this.socketQueue.add('add-message', { address })
-      void this.server.emit('postMessage', payload);
+      void this.socketQueue.add('add-message', { payload })
     } else {
       if(payload?.startNavigator) {
         check.startNavigator = payload.startNavigator
@@ -93,6 +91,10 @@ export class AppGateway
 
       posts = [...posts]
     }
+  }
+
+  postMessage(payload) {
+    void this.server.emit('postMessage', payload);
   }
 
 

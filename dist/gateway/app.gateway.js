@@ -17,7 +17,6 @@ const axios_1 = require("@nestjs/axios");
 const bull_1 = require("@nestjs/bull");
 const websockets_1 = require("@nestjs/websockets");
 const socket_io_1 = require("socket.io");
-const location_1 = require("../libs/utils/location");
 const Post_1 = require("../static/Post");
 const UserOnline_1 = require("../static/UserOnline");
 let AppGateway = class AppGateway {
@@ -48,12 +47,10 @@ let AppGateway = class AppGateway {
             if (payload.name === 'Người tham gia ẩn danh') {
                 payload.name = '[Ẩn danh - Nguy Hiểm]';
             }
-            const address = (0, location_1.getAddress)(payload.content);
             posts.unshift({
                 ...payload,
             });
-            void this.socketQueue.add('add-message', { address });
-            void this.server.emit('postMessage', payload);
+            void this.socketQueue.add('add-message', { payload });
         }
         else {
             if (payload?.startNavigator) {
@@ -67,6 +64,9 @@ let AppGateway = class AppGateway {
             }
             posts = [...posts];
         }
+    }
+    postMessage(payload) {
+        void this.server.emit('postMessage', payload);
     }
     addUser(user) {
         const users = UserOnline_1.UsersOnline.usersOnline;
