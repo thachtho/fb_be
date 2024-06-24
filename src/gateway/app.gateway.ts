@@ -81,10 +81,10 @@ export class AppGateway
         posts.unshift({
           ...payload,
         });
+        void this.server.emit('postMessage', payload);
   
         resolve(true)
       })
-      void this.server.emit('postMessage', payload);
 
 
     } else {
