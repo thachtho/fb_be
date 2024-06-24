@@ -12,10 +12,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
 const Post_1 = require("./static/Post");
+const UserOnline_1 = require("./static/UserOnline");
 let AppController = class AppController {
     getPost() {
         const posts = Post_1.Post.posts;
         return posts;
+    }
+    getUserOnline() {
+        const usersOnline = UserOnline_1.UsersOnline.usersOnline;
+        return usersOnline;
     }
 };
 exports.AppController = AppController;
@@ -25,6 +30,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Array)
 ], AppController.prototype, "getPost", null);
+__decorate([
+    (0, common_1.Get)('users-online'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Array)
+], AppController.prototype, "getUserOnline", null);
 exports.AppController = AppController = __decorate([
     (0, common_1.Controller)()
 ], AppController);

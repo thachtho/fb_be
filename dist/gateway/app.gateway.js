@@ -14,12 +14,10 @@ const axios_1 = require("@nestjs/axios");
 const websockets_1 = require("@nestjs/websockets");
 const socket_io_1 = require("socket.io");
 const Post_1 = require("../static/Post");
-const users_online_service_1 = require("../users-online/users-online.service");
+const UserOnline_1 = require("../static/UserOnline");
 let AppGateway = class AppGateway {
-    constructor(httpService, usersOnlineService) {
+    constructor(httpService) {
         this.httpService = httpService;
-        this.usersOnlineService = usersOnlineService;
-        this.listUser = [];
     }
     afterInit(server) {
         console.log('Socket.IO server initialized');
@@ -29,14 +27,10 @@ let AppGateway = class AppGateway {
         if (phone) {
             this.addUser({ phone, socketId: client.id });
         }
-        console.log('connectionnnnnnnnnnnn');
     }
     handleDisconnect(client) {
         console.log('Ngat ket noi!.', client.id);
-        const phone = client.handshake?.query?.phone;
-        if (phone) {
-            return this.removeUser(phone);
-        }
+        this.removeUser(client.id);
     }
     async handleRemovmessageseMessage(client, payload) {
         if (payload.name === 'Người tham gia ẩn danh') {
@@ -66,18 +60,15 @@ let AppGateway = class AppGateway {
             posts = [...posts];
         }
     }
-    async addUser(user) {
-        const { phone } = user;
-        const userExit = await this.usersOnlineService.findByPhone(phone, 'usersOnline');
-        if (userExit.length === 0) {
-            return this.usersOnlineService.create(user, 'usersOnline');
-        }
+    addUser(user) {
+        const users = UserOnline_1.UsersOnline.usersOnline;
+        const { phone, socketId } = user;
+        !users.some((user) => user.phone.toString() === phone.toString()) &&
+            users.push({ phone: phone.toString(), socketId });
     }
-    async removeUser(phone) {
-        const currentUser = await this.usersOnlineService.findByPhone(phone, 'usersOnline');
-        if (currentUser.length > 0) {
-            return this.usersOnlineService.remove(currentUser[0].id, 'usersOnline');
-        }
+    removeUser(socketId) {
+        let users = UserOnline_1.UsersOnline.usersOnline;
+        UserOnline_1.UsersOnline.usersOnline = [...users.filter((user) => user.socketId !== socketId)];
     }
 };
 exports.AppGateway = AppGateway;
@@ -95,7 +86,6 @@ exports.AppGateway = AppGateway = __decorate([
     (0, websockets_1.WebSocketGateway)({
         cors: true,
     }),
-    __metadata("design:paramtypes", [axios_1.HttpService,
-        users_online_service_1.UsersOnlineService])
+    __metadata("design:paramtypes", [axios_1.HttpService])
 ], AppGateway);
 //# sourceMappingURL=app.gateway.js.map

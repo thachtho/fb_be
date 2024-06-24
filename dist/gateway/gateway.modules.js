@@ -7,17 +7,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GatewayModules = void 0;
+const axios_1 = require("@nestjs/axios");
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
 const app_gateway_1 = require("./app.gateway");
-const axios_1 = require("@nestjs/axios");
-const users_online_module_1 = require("../users-online/users-online.module");
 let GatewayModules = class GatewayModules {
 };
 exports.GatewayModules = GatewayModules;
 exports.GatewayModules = GatewayModules = __decorate([
     (0, common_1.Module)({
-        imports: [axios_1.HttpModule, users_online_module_1.UsersOnlineModule],
+        imports: [axios_1.HttpModule],
         providers: [app_gateway_1.AppGateway, jwt_1.JwtService],
         controllers: [],
     })
