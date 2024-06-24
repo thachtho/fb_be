@@ -80,9 +80,10 @@ export class AppGateway
         ...payload,
       });
       void this.socketQueue.add('add-message', {
-        server: this.server,
+        func: () => void this.server.emit('postMessage', payload),
         payload
       })
+
     } else {
       if(payload?.startNavigator) {
         check.startNavigator = payload.startNavigator
