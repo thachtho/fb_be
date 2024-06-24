@@ -8,6 +8,7 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
+import { DistanceService } from 'src/distance/distance.service';
 import { getAddress } from 'src/libs/utils/location';
 import { Post } from 'src/static/Post';
 import { UsersOnline } from 'src/static/UserOnline';
@@ -33,7 +34,10 @@ interface IClientSocketUser {
 export class AppGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    private readonly httpService: HttpService, 
+    private readonly distanceService: DistanceService
+  ) {}
   @WebSocketServer() server: Server;
 
   afterInit(server: Server) {
@@ -66,7 +70,8 @@ export class AppGateway
         payload.name = '[Ẩn danh - Nguy Hiểm]'
       }
       const address = getAddress(payload.content);
-      console.log(11, address)
+      const locationStart = await this.distanceService.getLocaltionStart(address)
+      console.log(11, locationStart)
       posts.unshift({
         ...payload,
       });

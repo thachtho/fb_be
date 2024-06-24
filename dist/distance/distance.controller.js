@@ -22,6 +22,9 @@ let DistanceController = class DistanceController {
     getDistance(body) {
         return this.distanceService.getDistance(body);
     }
+    test() {
+        return this.distanceService.getLocaltionStart('78 Huỳnh Văn Nghệ, Hoà Hải, Ngũ Hành Sơn, Đà Nẵng');
+    }
 };
 exports.DistanceController = DistanceController;
 __decorate([
@@ -31,6 +34,12 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], DistanceController.prototype, "getDistance", null);
+__decorate([
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], DistanceController.prototype, "test", null);
 exports.DistanceController = DistanceController = __decorate([
     (0, common_1.Controller)('distance'),
     __metadata("design:paramtypes", [distance_service_1.DistanceService])

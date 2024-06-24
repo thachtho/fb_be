@@ -13,6 +13,8 @@ exports.DistanceService = void 0;
 const axios_1 = require("@nestjs/axios");
 const common_1 = require("@nestjs/common");
 const rxjs_1 = require("rxjs");
+const constant_1 = require("../libs/constant");
+const regex_1 = require("../libs/utils/regex");
 const distance_1 = require("../utils/distance");
 let DistanceService = class DistanceService {
     constructor(httpService) {
@@ -35,7 +37,25 @@ let DistanceService = class DistanceService {
             return null;
         }
         catch (error) {
-            console.log(3333, error);
+            return null;
+        }
+    }
+    async getLocaltionStart(address) {
+        const addressEncode = encodeURIComponent(address);
+        try {
+            const api = this.httpService.get(`${constant_1.BASE_URL_GOOGLE}/maps/place/${addressEncode}`);
+            const response = (await (0, rxjs_1.lastValueFrom)(api))?.data;
+            if (response) {
+                const url = (0, regex_1.regexUrlGoogleMap)(response);
+                const dataArr = url.split('/');
+                const location = dataArr[7].split(',');
+                const latitude = location[0].replace('@', '');
+                const longitude = location[1];
+                const locationA = { latitude, longitude };
+                return locationA;
+            }
+        }
+        catch (error) {
             return null;
         }
     }

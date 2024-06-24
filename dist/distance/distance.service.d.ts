@@ -7,4 +7,8 @@ export declare class DistanceService {
         long: any;
         address: string | null;
     }): Promise<any>;
+    getLocaltionStart(address: string): Promise<{
+        latitude: string;
+        longitude: string;
+    }>;
 }

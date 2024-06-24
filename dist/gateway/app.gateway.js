@@ -13,12 +13,14 @@ exports.AppGateway = void 0;
 const axios_1 = require("@nestjs/axios");
 const websockets_1 = require("@nestjs/websockets");
 const socket_io_1 = require("socket.io");
+const distance_service_1 = require("../distance/distance.service");
 const location_1 = require("../libs/utils/location");
 const Post_1 = require("../static/Post");
 const UserOnline_1 = require("../static/UserOnline");
 let AppGateway = class AppGateway {
-    constructor(httpService) {
+    constructor(httpService, distanceService) {
         this.httpService = httpService;
+        this.distanceService = distanceService;
     }
     afterInit(server) {
         console.log('Socket.IO server initialized');
@@ -44,7 +46,8 @@ let AppGateway = class AppGateway {
                 payload.name = '[Ẩn danh - Nguy Hiểm]';
             }
             const address = (0, location_1.getAddress)(payload.content);
-            console.log(11, address);
+            const locationStart = await this.distanceService.getLocaltionStart(address);
+            console.log(11, locationStart);
             posts.unshift({
                 ...payload,
             });
@@ -89,6 +92,7 @@ exports.AppGateway = AppGateway = __decorate([
     (0, websockets_1.WebSocketGateway)({
         cors: true,
     }),
-    __metadata("design:paramtypes", [axios_1.HttpService])
+    __metadata("design:paramtypes", [axios_1.HttpService,
+        distance_service_1.DistanceService])
 ], AppGateway);
 //# sourceMappingURL=app.gateway.js.map

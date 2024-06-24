@@ -9,4 +9,9 @@ export class DistanceController {
   getDistance(@Body() body: { lat: any; long: any; address: string | null }) {
     return this.distanceService.getDistance(body);
   }
+
+  @Get()
+  test() {
+    return this.distanceService.getLocaltionStart('78 Huỳnh Văn Nghệ, Hoà Hải, Ngũ Hành Sơn, Đà Nẵng')
+  }
 }

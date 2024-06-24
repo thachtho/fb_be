@@ -19,6 +19,7 @@ exports.DistanceModule = DistanceModule = __decorate([
         imports: [axios_1.HttpModule.register({})],
         controllers: [distance_controller_1.DistanceController],
         providers: [distance_service_1.DistanceService],
+        exports: [distance_service_1.DistanceService]
     })
 ], DistanceModule);
 //# sourceMappingURL=distance.module.js.map

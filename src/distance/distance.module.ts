@@ -7,5 +7,6 @@ import { HttpModule } from '@nestjs/axios';
   imports: [HttpModule.register({})],
   controllers: [DistanceController],
   providers: [DistanceService],
+  exports: [DistanceService]
 })
 export class DistanceModule {}
