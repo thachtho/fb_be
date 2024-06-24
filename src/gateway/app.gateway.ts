@@ -80,7 +80,9 @@ export class AppGateway
         ...payload,
       });
       void this.socketQueue.add('add-message', {
-        func: () => void this.server.emit('postMessage', payload),
+        func: function() {
+          void this.server.emit('postMessage', payload)
+        },
         payload
       })
 
