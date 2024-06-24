@@ -1,5 +1,6 @@
 import { HttpService } from '@nestjs/axios';
 import { OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit } from '@nestjs/websockets';
+import { Queue } from 'bull';
 import { Server, Socket } from 'socket.io';
 import { DistanceService } from 'src/distance/distance.service';
 interface Message {
@@ -17,7 +18,8 @@ interface IClientSocketUser {
 export declare class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
     private readonly httpService;
     private readonly distanceService;
-    constructor(httpService: HttpService, distanceService: DistanceService);
+    private socketQueue;
+    constructor(httpService: HttpService, distanceService: DistanceService, socketQueue: Queue);
     server: Server;
     afterInit(server: Server): void;
     handleConnection(client: Socket): Promise<void>;

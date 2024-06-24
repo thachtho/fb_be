@@ -44,7 +44,7 @@ let DistanceService = class DistanceService {
         const addressEncode = encodeURIComponent(address);
         try {
             const api = this.httpService.get(`${constant_1.BASE_URL_GOOGLE}/maps/place/${addressEncode}`);
-            const response = (await (0, rxjs_1.lastValueFrom)(api))?.data;
+            const response = await (await (0, rxjs_1.lastValueFrom)(api))?.data;
             if (response) {
                 const url = (0, regex_1.regexUrlGoogleMap)(response);
                 const dataArr = url.split('/');

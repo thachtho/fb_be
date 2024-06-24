@@ -19,12 +19,19 @@ const auth_module_1 = require("./auth/auth.module");
 const distance_module_1 = require("./distance/distance.module");
 const gateway_modules_1 = require("./gateway/gateway.modules");
 const users_module_1 = require("./users/users.module");
+const bull_1 = require("@nestjs/bull");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            bull_1.BullModule.forRoot({
+                redis: {
+                    host: 'localhost',
+                    port: 6379,
+                },
+            }),
             nestjs_cls_1.ClsModule.forRoot({
                 middleware: {
                     mount: true,

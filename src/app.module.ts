@@ -10,9 +10,16 @@ import { AuthModule } from './auth/auth.module';
 import { DistanceModule } from './distance/distance.module';
 import { GatewayModules } from './gateway/gateway.modules';
 import { UsersModule } from './users/users.module';
+import { BullModule } from '@nestjs/bull';
 
 @Module({
   imports: [
+    BullModule.forRoot({
+      redis: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
     ClsModule.forRoot({
       middleware: {
         mount: true,
@@ -27,6 +34,7 @@ import { UsersModule } from './users/users.module';
     // MongooseModule.forRoot('mongodb+srv://buithanhtho31ig:bHVCkgHfEBBFi6FM@cluster0.2d5twje.mongodb.net/', {
     //   dbName: 'fb',
     // })
+
   ],
   controllers: [AppController],
   providers: [AppService,

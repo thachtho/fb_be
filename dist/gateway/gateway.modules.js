@@ -12,13 +12,17 @@ const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
 const app_gateway_1 = require("./app.gateway");
 const distance_module_1 = require("../distance/distance.module");
+const bull_1 = require("@nestjs/bull");
+const gateway_processor_1 = require("./gateway.processor");
 let GatewayModules = class GatewayModules {
 };
 exports.GatewayModules = GatewayModules;
 exports.GatewayModules = GatewayModules = __decorate([
     (0, common_1.Module)({
-        imports: [axios_1.HttpModule, distance_module_1.DistanceModule],
-        providers: [app_gateway_1.AppGateway, jwt_1.JwtService],
+        imports: [axios_1.HttpModule, distance_module_1.DistanceModule, bull_1.BullModule.registerQueue({
+                name: 'socket',
+            })],
+        providers: [app_gateway_1.AppGateway, jwt_1.JwtService, gateway_processor_1.SocketProcessor],
         controllers: [],
     })
 ], GatewayModules);

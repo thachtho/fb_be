@@ -1,4 +1,5 @@
 import { HttpService } from '@nestjs/axios';
+import { InjectQueue } from '@nestjs/bull';
 import {
   OnGatewayConnection,
   OnGatewayDisconnect,
@@ -7,6 +8,7 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
+import { Queue } from 'bull';
 import { Server, Socket } from 'socket.io';
 import { DistanceService } from 'src/distance/distance.service';
 import { getAddress } from 'src/libs/utils/location';
@@ -36,7 +38,8 @@ export class AppGateway
 {
   constructor(
     private readonly httpService: HttpService, 
-    private readonly distanceService: DistanceService
+    private readonly distanceService: DistanceService,
+    @InjectQueue('socket') private socketQueue: Queue
   ) {}
   @WebSocketServer() server: Server;
 
@@ -76,7 +79,7 @@ export class AppGateway
       posts.unshift({
         ...payload,
       });
-
+      void this.socketQueue.add('add-message', payload)
       void this.server.emit('postMessage', payload);
     } else {
       if(payload?.startNavigator) {

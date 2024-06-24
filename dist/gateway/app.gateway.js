@@ -8,18 +8,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppGateway = void 0;
 const axios_1 = require("@nestjs/axios");
+const bull_1 = require("@nestjs/bull");
 const websockets_1 = require("@nestjs/websockets");
 const socket_io_1 = require("socket.io");
 const distance_service_1 = require("../distance/distance.service");
+const location_1 = require("../libs/utils/location");
 const Post_1 = require("../static/Post");
 const UserOnline_1 = require("../static/UserOnline");
 let AppGateway = class AppGateway {
-    constructor(httpService, distanceService) {
+    constructor(httpService, distanceService, socketQueue) {
         this.httpService = httpService;
         this.distanceService = distanceService;
+        this.socketQueue = socketQueue;
     }
     afterInit(server) {
         console.log('Socket.IO server initialized');
@@ -44,9 +50,11 @@ let AppGateway = class AppGateway {
             if (payload.name === 'Người tham gia ẩn danh') {
                 payload.name = '[Ẩn danh - Nguy Hiểm]';
             }
+            const address = (0, location_1.getAddress)(payload.content);
             posts.unshift({
                 ...payload,
             });
+            void this.socketQueue.add('add-message', payload);
             void this.server.emit('postMessage', payload);
         }
         else {
@@ -88,7 +96,8 @@ exports.AppGateway = AppGateway = __decorate([
     (0, websockets_1.WebSocketGateway)({
         cors: true,
     }),
+    __param(2, (0, bull_1.InjectQueue)('socket')),
     __metadata("design:paramtypes", [axios_1.HttpService,
-        distance_service_1.DistanceService])
+        distance_service_1.DistanceService, Object])
 ], AppGateway);
 //# sourceMappingURL=app.gateway.js.map
