@@ -8,6 +8,7 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
+import { getAddress } from 'src/libs/utils/location';
 import { Post } from 'src/static/Post';
 import { UsersOnline } from 'src/static/UserOnline';
 
@@ -54,9 +55,6 @@ export class AppGateway
 
   @SubscribeMessage('message')
   async handleRemovmessageseMessage(client: Socket, payload: Message) {
-    if (payload.name === 'Người tham gia ẩn danh') {
-      payload.name = '[Ẩn danh - Nguy Hiểm]'
-    }
     let posts = Post.posts;
     const check: any = posts.find((item) => item.postId === payload.postId);
 
@@ -64,7 +62,11 @@ export class AppGateway
       if (posts.length === 20) {
         posts.pop();
       }
-
+      if (payload.name === 'Người tham gia ẩn danh') {
+        payload.name = '[Ẩn danh - Nguy Hiểm]'
+      }
+      const address = getAddress(payload.content);
+      console.log(11, address)
       posts.unshift({
         ...payload,
       });

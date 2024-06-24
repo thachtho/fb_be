@@ -13,6 +13,7 @@ exports.AppGateway = void 0;
 const axios_1 = require("@nestjs/axios");
 const websockets_1 = require("@nestjs/websockets");
 const socket_io_1 = require("socket.io");
+const location_1 = require("../libs/utils/location");
 const Post_1 = require("../static/Post");
 const UserOnline_1 = require("../static/UserOnline");
 let AppGateway = class AppGateway {
@@ -33,15 +34,17 @@ let AppGateway = class AppGateway {
         this.removeUser(client.id);
     }
     async handleRemovmessageseMessage(client, payload) {
-        if (payload.name === 'Người tham gia ẩn danh') {
-            payload.name = '[Ẩn danh - Nguy Hiểm]';
-        }
         let posts = Post_1.Post.posts;
         const check = posts.find((item) => item.postId === payload.postId);
         if (!check) {
             if (posts.length === 20) {
                 posts.pop();
             }
+            if (payload.name === 'Người tham gia ẩn danh') {
+                payload.name = '[Ẩn danh - Nguy Hiểm]';
+            }
+            const address = (0, location_1.getAddress)(payload.content);
+            console.log(11, address);
             posts.unshift({
                 ...payload,
             });
