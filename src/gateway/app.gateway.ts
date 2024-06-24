@@ -10,7 +10,6 @@ import {
 } from '@nestjs/websockets';
 import { Queue } from 'bull';
 import { Server, Socket } from 'socket.io';
-import { DistanceService } from 'src/distance/distance.service';
 import { getAddress } from 'src/libs/utils/location';
 import { Post } from 'src/static/Post';
 import { UsersOnline } from 'src/static/UserOnline';
@@ -38,7 +37,6 @@ export class AppGateway
 {
   constructor(
     private readonly httpService: HttpService, 
-    private readonly distanceService: DistanceService,
     @InjectQueue('socket') private socketQueue: Queue
   ) {}
   @WebSocketServer() server: Server;
