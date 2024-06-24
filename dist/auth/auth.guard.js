@@ -15,10 +15,14 @@ const core_1 = require("@nestjs/core");
 const jwt_1 = require("@nestjs/jwt");
 const guard_1 = require("../libs/guard/guard");
 const auth_module_1 = require("./auth.module");
+const users_service_1 = require("../users/users.service");
+const nestjs_cls_1 = require("nestjs-cls");
 let AuthGuard = class AuthGuard {
-    constructor(jwtService, reflector) {
+    constructor(jwtService, reflector, userService, cls) {
         this.jwtService = jwtService;
         this.reflector = reflector;
+        this.userService = userService;
+        this.cls = cls;
     }
     async canActivate(context) {
         const isPublic = this.reflector.getAllAndOverride(guard_1.IS_PUBLIC_KEY, [
@@ -38,6 +42,7 @@ let AuthGuard = class AuthGuard {
                 secret: auth_module_1.jwtConstants.secret,
             });
             request['user'] = payload;
+            this.cls.set('user', JSON.stringify(payload));
         }
         catch (err) {
             throw new common_1.UnauthorizedException();
@@ -71,6 +76,9 @@ let AuthGuard = class AuthGuard {
 exports.AuthGuard = AuthGuard;
 exports.AuthGuard = AuthGuard = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [jwt_1.JwtService, core_1.Reflector])
+    __metadata("design:paramtypes", [jwt_1.JwtService,
+        core_1.Reflector,
+        users_service_1.UsersService,
+        nestjs_cls_1.ClsService])
 ], AuthGuard);
 //# sourceMappingURL=auth.guard.js.map

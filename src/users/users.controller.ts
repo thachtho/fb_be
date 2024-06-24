@@ -12,8 +12,9 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
 import { Public } from 'src/libs/guard/guard';
+import { ROUTE } from 'src/libs/constant';
 
-@Controller('users')
+@Controller(ROUTE.USERS)
 export class UsersController {
   constructor(
     private readonly usersService: UsersService, 

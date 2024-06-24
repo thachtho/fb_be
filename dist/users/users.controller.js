@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const create_user_dto_1 = require("./dto/create-user.dto");
 const update_user_dto_1 = require("./dto/update-user.dto");
 const users_service_1 = require("./users.service");
+const constant_1 = require("../libs/constant");
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
@@ -94,7 +95,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "accessByPhone", null);
 exports.UsersController = UsersController = __decorate([
-    (0, common_1.Controller)('users'),
+    (0, common_1.Controller)(constant_1.ROUTE.USERS),
     __metadata("design:paramtypes", [users_service_1.UsersService])
 ], UsersController);
 //# sourceMappingURL=users.controller.js.map

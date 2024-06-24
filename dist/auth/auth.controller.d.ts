@@ -1,7 +1,7 @@
 import { Response } from 'express';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
 export declare class AuthController {
     private readonly authService;
     constructor(authService: AuthService);

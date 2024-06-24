@@ -18,18 +18,26 @@ const users_module_1 = require("./users/users.module");
 const auth_module_1 = require("./auth/auth.module");
 const core_1 = require("@nestjs/core");
 const auth_guard_1 = require("./auth/auth.guard");
+const nestjs_cls_1 = require("nestjs-cls");
+const users_online_module_1 = require("./users-online/users-online.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            nestjs_cls_1.ClsModule.forRoot({
+                middleware: {
+                    mount: true,
+                },
+            }),
             gateway_modules_1.GatewayModules,
             schedule_1.ScheduleModule.forRoot(),
             axios_1.HttpModule.register({}),
             distance_module_1.DistanceModule,
             users_module_1.UsersModule,
             auth_module_1.AuthModule,
+            users_online_module_1.UsersOnlineModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService,

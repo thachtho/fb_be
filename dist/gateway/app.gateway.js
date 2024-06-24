@@ -14,20 +14,34 @@ const axios_1 = require("@nestjs/axios");
 const websockets_1 = require("@nestjs/websockets");
 const socket_io_1 = require("socket.io");
 const Post_1 = require("../static/Post");
+const users_online_service_1 = require("../users-online/users-online.service");
 let AppGateway = class AppGateway {
-    constructor(httpService) {
+    constructor(httpService, usersOnlineService) {
         this.httpService = httpService;
+        this.usersOnlineService = usersOnlineService;
+        this.listUser = [];
     }
     afterInit(server) {
         console.log('Socket.IO server initialized');
     }
     async handleConnection(client) {
+        const phone = client.handshake?.query?.phone;
+        if (phone) {
+            this.addUser({ phone, socketId: client.id });
+        }
         console.log('connectionnnnnnnnnnnn');
     }
     handleDisconnect(client) {
         console.log('Ngat ket noi!.', client.id);
+        const phone = client.handshake?.query?.phone;
+        if (phone) {
+            return this.removeUser(phone);
+        }
     }
     async handleRemovmessageseMessage(client, payload) {
+        if (payload.name === 'Người tham gia ẩn danh') {
+            payload.name = '[Ẩn danh - Nguy Hiểm]';
+        }
         let posts = Post_1.Post.posts;
         const check = posts.find((item) => item.postId === payload.postId);
         if (!check) {
@@ -52,6 +66,19 @@ let AppGateway = class AppGateway {
             posts = [...posts];
         }
     }
+    async addUser(user) {
+        const { phone } = user;
+        const userExit = await this.usersOnlineService.findByPhone(phone, 'usersOnline');
+        if (userExit.length === 0) {
+            return this.usersOnlineService.create(user, 'usersOnline');
+        }
+    }
+    async removeUser(phone) {
+        const currentUser = await this.usersOnlineService.findByPhone(phone, 'usersOnline');
+        if (currentUser.length > 0) {
+            return this.usersOnlineService.remove(currentUser[0].id, 'usersOnline');
+        }
+    }
 };
 exports.AppGateway = AppGateway;
 __decorate([
@@ -68,6 +95,7 @@ exports.AppGateway = AppGateway = __decorate([
     (0, websockets_1.WebSocketGateway)({
         cors: true,
     }),
-    __metadata("design:paramtypes", [axios_1.HttpService])
+    __metadata("design:paramtypes", [axios_1.HttpService,
+        users_online_service_1.UsersOnlineService])
 ], AppGateway);
 //# sourceMappingURL=app.gateway.js.map

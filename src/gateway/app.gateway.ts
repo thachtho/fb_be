@@ -10,7 +10,7 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { Post } from 'src/static/Post';
-
+import { UsersOnlineService } from 'src/users-online/users-online.service';
 
 interface Message {
   name: string;
@@ -21,13 +21,22 @@ interface Message {
   startNavigator?: any
 }
 
+interface IClientSocketUser {
+  phone: string; 
+  socketId: string 
+}
+
 @WebSocketGateway({
   cors: true,
 })
 export class AppGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
-  constructor(private readonly httpService: HttpService) {}
+  public listUser = [];
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly usersOnlineService: UsersOnlineService,
+  ) {}
   @WebSocketServer() server: Server;
 
   afterInit(server: Server) {
@@ -35,11 +44,22 @@ export class AppGateway
   }
 
   async handleConnection(client: Socket) {
+    const phone = client.handshake?.query?.phone as string;
+    
+    if (phone) {
+      this.addUser({ phone, socketId: client.id });
+    }
     console.log('connectionnnnnnnnnnnn');
+
   }
 
   handleDisconnect(client: Socket) {
     console.log('Ngat ket noi!.', client.id);
+    const phone = client.handshake?.query?.phone as string;
+
+    if (phone) {
+      return this.removeUser(phone);
+    }
   }
 
   @SubscribeMessage('message')
@@ -74,13 +94,23 @@ export class AppGateway
 
       posts = [...posts]
     }
+  }
 
 
-    // if (payload.content.length === 0 || !payload.name || (payload?.name.length === 0)) {
-    //   return;
-    // }
-    // console.log(1111, payload)
+  async addUser(user: IClientSocketUser) {
+    const { phone } = user;
+    const userExit: any[] = await this.usersOnlineService.findByPhone(phone, 'usersOnline')
 
+    if (userExit.length === 0) {
+      return this.usersOnlineService.create(user, 'usersOnline')
+    }
+  }
 
+  async removeUser(phone: string) {
+    const currentUser: any[] = await this.usersOnlineService.findByPhone(phone, 'usersOnline')
+
+    if (currentUser.length > 0) {
+      return this.usersOnlineService.remove(currentUser[0].id, 'usersOnline')
+    }
   }
 }

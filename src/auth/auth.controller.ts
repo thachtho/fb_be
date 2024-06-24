@@ -2,18 +2,18 @@ import {
   Body,
   Controller,
   HttpCode,
-  HttpException,
   HttpStatus,
   Post,
   Res
 } from '@nestjs/common';
 import { Response } from 'express';
+import { ROUTE } from 'src/libs/constant';
 import { Public } from 'src/libs/guard/guard';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
 
-@Controller('auth')
+@Controller(ROUTE.AUTH)
 @Public()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}

@@ -3,6 +3,7 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { lastValueFrom } from 'rxjs';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { BASE_URL_JSON_SERVER } from 'src/libs/constant';
 
 @Injectable()
 export class UsersService {
@@ -18,19 +19,15 @@ export class UsersService {
       throw new HttpException('Số điện thoại đã tồn tại!', 501)
     }
     const api = this.httpService.post(
-      `http://localhost:4000/users`, createUserDto
+      `${BASE_URL_JSON_SERVER}/users`, createUserDto
     );
 
     return (await lastValueFrom(api))?.data;
   }
 
-  getUser() {
-
-  }
-
   async findAll() {
     const api = this.httpService.get(
-      `http://localhost:4000/users`
+      `${BASE_URL_JSON_SERVER}/users`
     );
 
     return (await lastValueFrom(api))?.data;
@@ -38,7 +35,7 @@ export class UsersService {
 
   async findOne(id: string) {
     const api = this.httpService.get(
-      `http://localhost:4000/users/${id}`
+      `${BASE_URL_JSON_SERVER}/users/${id}`
     );
   
     return (await lastValueFrom(api))?.data
@@ -50,7 +47,7 @@ export class UsersService {
 
   async remove(id: string) {
     const api = this.httpService.delete(
-      `http://localhost:4000/users/${id}`
+      `${BASE_URL_JSON_SERVER}/users/${id}`
     );
 
     return (await lastValueFrom(api))?.data;
@@ -58,7 +55,7 @@ export class UsersService {
 
   async findByPhone(phone: string) {
     const api = this.httpService.get(
-      `http://localhost:4000/users?phone=${phone}`
+      `${BASE_URL_JSON_SERVER}/users?phone=${phone}`
     );
 
     return (await lastValueFrom(api))?.data;
@@ -66,7 +63,7 @@ export class UsersService {
 
   async accessById(id: string) {
     const api = this.httpService.patch(
-      `http://localhost:4000/users/${id}`, {
+      `${BASE_URL_JSON_SERVER}/users/${id}`, {
         access: true
       }
     );

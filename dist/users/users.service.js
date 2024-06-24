@@ -13,6 +13,7 @@ exports.UsersService = void 0;
 const axios_1 = require("@nestjs/axios");
 const common_1 = require("@nestjs/common");
 const rxjs_1 = require("rxjs");
+const constant_1 = require("../libs/constant");
 let UsersService = class UsersService {
     constructor(httpService) {
         this.httpService = httpService;
@@ -22,32 +23,30 @@ let UsersService = class UsersService {
         if (userExit.length > 0) {
             throw new common_1.HttpException('Số điện thoại đã tồn tại!', 501);
         }
-        const api = this.httpService.post(`http://localhost:4000/users`, createUserDto);
+        const api = this.httpService.post(`${constant_1.BASE_URL_JSON_SERVER}/users`, createUserDto);
         return (await (0, rxjs_1.lastValueFrom)(api))?.data;
     }
-    getUser() {
-    }
     async findAll() {
-        const api = this.httpService.get(`http://localhost:4000/users`);
+        const api = this.httpService.get(`${constant_1.BASE_URL_JSON_SERVER}/users`);
         return (await (0, rxjs_1.lastValueFrom)(api))?.data;
     }
     async findOne(id) {
-        const api = this.httpService.get(`http://localhost:4000/users/${id}`);
+        const api = this.httpService.get(`${constant_1.BASE_URL_JSON_SERVER}/users/${id}`);
         return (await (0, rxjs_1.lastValueFrom)(api))?.data;
     }
     update(id, updateUserDto) {
         return `This action updates a #${id} user`;
     }
     async remove(id) {
-        const api = this.httpService.delete(`http://localhost:4000/users/${id}`);
+        const api = this.httpService.delete(`${constant_1.BASE_URL_JSON_SERVER}/users/${id}`);
         return (await (0, rxjs_1.lastValueFrom)(api))?.data;
     }
     async findByPhone(phone) {
-        const api = this.httpService.get(`http://localhost:4000/users?phone=${phone}`);
+        const api = this.httpService.get(`${constant_1.BASE_URL_JSON_SERVER}/users?phone=${phone}`);
         return (await (0, rxjs_1.lastValueFrom)(api))?.data;
     }
     async accessById(id) {
-        const api = this.httpService.patch(`http://localhost:4000/users/${id}`, {
+        const api = this.httpService.patch(`${constant_1.BASE_URL_JSON_SERVER}/users/${id}`, {
             access: true
         });
         return (await (0, rxjs_1.lastValueFrom)(api))?.data;
