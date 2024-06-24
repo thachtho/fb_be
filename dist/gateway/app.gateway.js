@@ -47,7 +47,8 @@ let AppGateway = class AppGateway {
             }
             const address = (0, location_1.getAddress)(payload.content);
             const locationStart = await this.distanceService.getLocaltionStart(address);
-            console.log(11, locationStart);
+            console.log(11, address);
+            console.log(222, locationStart);
             posts.unshift({
                 ...payload,
             });
