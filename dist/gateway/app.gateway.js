@@ -51,15 +51,14 @@ let AppGateway = class AppGateway {
                 payload.name = '[Ẩn danh - Nguy Hiểm]';
             }
             const address = (0, location_1.getAddress)(payload.content);
-            posts.unshift({
-                ...payload,
+            await new Promise(async (resolve) => {
+                const locationStart = await this.distanceService.getLocaltionStart(address);
+                posts.unshift({
+                    ...payload,
+                });
+                resolve(true);
             });
-            void this.socketQueue.add('add-message', {
-                func: function () {
-                    void this.server.emit('postMessage', payload);
-                },
-                payload
-            });
+            void this.server.emit('postMessage', payload);
         }
         else {
             if (payload?.startNavigator) {

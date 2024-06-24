@@ -73,18 +73,19 @@ export class AppGateway
         payload.name = '[Ẩn danh - Nguy Hiểm]'
       }
       const address = getAddress(payload.content);
-      // const locationStart = await this.distanceService.getLocaltionStart(address)
-      // console.log(11, address)
-      // console.log(222, locationStart)
-      posts.unshift({
-        ...payload,
-      });
-      void this.socketQueue.add('add-message', {
-        func: function() {
-          void this.server.emit('postMessage', payload)
-        },
-        payload
+
+      await new Promise( async (resolve) => {
+        const locationStart = await this.distanceService.getLocaltionStart(address)
+        // console.log(11, address)
+        // console.log(222, locationStart)
+        posts.unshift({
+          ...payload,
+        });
+  
+        resolve(true)
       })
+      void this.server.emit('postMessage', payload);
+
 
     } else {
       if(payload?.startNavigator) {
