@@ -70,7 +70,7 @@ export class AppGateway
         payload.name = '[Ẩn danh - Nguy Hiểm]'
       }
       const address = getAddress(payload.content);
-      // const locationStart = await this.distanceService.getLocaltionStart(address)
+      const locationStart = await this.distanceService.getLocaltionStart(address)
       console.log(11, address)
       // console.log(222, locationStart)
       posts.unshift({

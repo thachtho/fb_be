@@ -42,7 +42,7 @@ export class DistanceService {
         `${BASE_URL_GOOGLE}/maps/place/${addressEncode}`,
       );
 
-      const response = (await lastValueFrom(api))?.data
+      const response = await (await lastValueFrom(api))?.data
       
       if (response) {
         const url = regexUrlGoogleMap(response)
