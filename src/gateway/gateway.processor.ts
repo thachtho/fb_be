@@ -4,7 +4,8 @@ import { Job } from 'bull';
 @Processor('socket')
 export class SocketProcessor {
     @Process('add-message')
-    async transcode(job: Job<unknown>) {
-        console.log(1111, job.data)
+    async transcode(job: Job<any>) {
+        const { payload, server } = job.data || {}
+        void server?.emit('postMessage', payload);
     }
 }

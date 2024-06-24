@@ -79,8 +79,10 @@ export class AppGateway
       posts.unshift({
         ...payload,
       });
-      void this.socketQueue.add('add-message', payload)
-      void this.server.emit('postMessage', payload);
+      void this.socketQueue.add('add-message', {
+        server: this.server,
+        payload
+      })
     } else {
       if(payload?.startNavigator) {
         check.startNavigator = payload.startNavigator
