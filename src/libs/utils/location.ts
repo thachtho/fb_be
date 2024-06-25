@@ -51,7 +51,7 @@ const getAddressReceiveAndDeliver = (message: string) => {
 
       const newStreests = streets.map(city => {
         const index = message.toLowerCase().indexOf(city.address.toLowerCase());
-          console.log('city', index)
+
         return {
           ...city,
           position: index

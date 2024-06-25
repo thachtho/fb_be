@@ -36,7 +36,6 @@ export class DistanceService {
 
   async getLocaltionStart(address: string) {
     const addressEncode = encodeURIComponent(address);
-    console.log(11, address)
 
     try {
       const api = this.httpService.get(
