@@ -21,7 +21,8 @@ interface Message {
   content: string;
   created_at?: Date;
   userId?: string;
-  startNavigator?: any
+  startNavigator?: any,
+  location?: any
 }
 
 interface IClientSocketUser {
@@ -70,9 +71,6 @@ export class AppGateway
       if (payload.name === 'Người tham gia ẩn danh') {
         payload.name = '[Ẩn danh - Nguy Hiểm]'
       }
-      // const locationStart = await this.distanceService.getLocaltionStart(address)
-      // console.log(11, address)
-      // console.log(222, locationStart)
       posts.unshift({
         ...payload,
       });
@@ -93,7 +91,14 @@ export class AppGateway
     }
   }
 
-  postMessage(payload) {
+  postMessage(payload: Message) {
+    let posts = Post.posts;
+    const currentPost: any = posts.find(item => item.postId === payload.postId)
+
+    if (currentPost) {
+      currentPost.location = payload.location;
+    }
+
     void this.server.emit('postMessage', payload);
   }
 
