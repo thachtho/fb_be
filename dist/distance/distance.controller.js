@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DistanceController = void 0;
 const common_1 = require("@nestjs/common");
+const guard_1 = require("../libs/guard/guard");
 const distance_service_1 = require("./distance.service");
 let DistanceController = class DistanceController {
     constructor(distanceService) {
@@ -21,9 +22,6 @@ let DistanceController = class DistanceController {
     }
     getDistance(body) {
         return this.distanceService.getDistance(body);
-    }
-    test() {
-        return this.distanceService.getLocaltionStart('78 Huỳnh Văn Nghệ, Hoà Hải, Ngũ Hành Sơn, Đà Nẵng');
     }
 };
 exports.DistanceController = DistanceController;
@@ -34,14 +32,9 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], DistanceController.prototype, "getDistance", null);
-__decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], DistanceController.prototype, "test", null);
 exports.DistanceController = DistanceController = __decorate([
     (0, common_1.Controller)('distance'),
+    (0, guard_1.Public)(),
     __metadata("design:paramtypes", [distance_service_1.DistanceService])
 ], DistanceController);
 //# sourceMappingURL=distance.controller.js.map

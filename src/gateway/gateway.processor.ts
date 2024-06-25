@@ -1,8 +1,9 @@
 import { Process, Processor } from '@nestjs/bull';
 import { Job } from 'bull';
 import { DistanceService } from 'src/distance/distance.service';
+import { getAddressReceiveAndDeliver, getFullAddress } from 'src/libs/utils/location';
 import { AppGateway } from './app.gateway';
-import { getAddress } from 'src/libs/utils/location';
+
 
 @Processor('socket')
 export class SocketProcessor {
@@ -17,8 +18,8 @@ export class SocketProcessor {
         const { payload } = job.data || {};
 
         if (payload) {
-            const address = getAddress(payload.content);
-            const locationStart = await this.distanceService.getLocaltionStart(address)
+            const { receive } = getAddressReceiveAndDeliver(payload.content);
+            const locationStart = await this.distanceService.getLocaltionStart(receive)
             payload.location = locationStart
             return this.gateWay.postMessage(payload)
         }

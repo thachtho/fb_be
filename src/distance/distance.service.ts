@@ -36,6 +36,7 @@ export class DistanceService {
 
   async getLocaltionStart(address: string) {
     const addressEncode = encodeURIComponent(address);
+    console.log(11, address)
 
     try {
       const api = this.httpService.get(
@@ -43,6 +44,7 @@ export class DistanceService {
       );
 
       const response = await (await lastValueFrom(api))?.data
+
       
       if (response) {
         const url = regexUrlGoogleMap(response)
@@ -51,7 +53,6 @@ export class DistanceService {
         const latitude = location[0].replace('@', '');
         const longitude = location[1]
         const locationA = { latitude, longitude }
-        
         return locationA;
       }
     } catch (error) {

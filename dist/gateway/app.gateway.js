@@ -32,6 +32,7 @@ let AppGateway = class AppGateway {
         if (phone) {
             this.addUser({ phone, socketId: client.id });
         }
+        console.log('Connection!');
     }
     handleDisconnect(client) {
         console.log('Ngat ket noi!.', client.id);
@@ -44,7 +45,7 @@ let AppGateway = class AppGateway {
             if (posts.length === 20) {
                 posts.pop();
             }
-            if (payload.name === 'Người tham gia ẩn danh') {
+            if (payload.name === 'Anonymous participant' || payload.name === 'Người tham gia ẩn danh') {
                 payload.name = '[Ẩn danh - Nguy Hiểm]';
             }
             posts.unshift({
@@ -66,6 +67,11 @@ let AppGateway = class AppGateway {
         }
     }
     postMessage(payload) {
+        let posts = Post_1.Post.posts;
+        const currentPost = posts.find(item => item.postId === payload.postId);
+        if (currentPost) {
+            currentPost.location = payload.location;
+        }
         void this.server.emit('postMessage', payload);
     }
     addUser(user) {

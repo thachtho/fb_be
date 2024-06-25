@@ -9,6 +9,7 @@ interface Message {
     created_at?: Date;
     userId?: string;
     startNavigator?: any;
+    location?: any;
 }
 interface IClientSocketUser {
     phone: string;
@@ -23,7 +24,7 @@ export declare class AppGateway implements OnGatewayInit, OnGatewayConnection, O
     handleConnection(client: Socket): Promise<void>;
     handleDisconnect(client: Socket): void;
     handleRemovmessageseMessage(client: Socket, payload: Message): Promise<void>;
-    postMessage(payload: any): void;
+    postMessage(payload: Message): void;
     addUser(user: IClientSocketUser): void;
     removeUser(socketId: string): void;
 }

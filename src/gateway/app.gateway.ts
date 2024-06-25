@@ -10,7 +10,6 @@ import {
 } from '@nestjs/websockets';
 import { Queue } from 'bull';
 import { Server, Socket } from 'socket.io';
-import { getAddress } from 'src/libs/utils/location';
 import { Post } from 'src/static/Post';
 import { UsersOnline } from 'src/static/UserOnline';
 
@@ -52,6 +51,7 @@ export class AppGateway
     if (phone) {
       this.addUser({ phone, socketId: client.id });
     }
+    console.log('Connection!')
   }
 
   handleDisconnect(client: Socket) {
