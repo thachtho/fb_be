@@ -21,7 +21,7 @@ export declare class AppGateway implements OnGatewayInit, OnGatewayConnection, O
     constructor(httpService: HttpService, socketQueue: Queue);
     server: Server;
     afterInit(server: Server): void;
-    handleConnection(client: Socket): Promise<void>;
+    handleConnection(client: Socket): Promise<void | Socket<import("socket.io/dist/typed-events").DefaultEventsMap, import("socket.io/dist/typed-events").DefaultEventsMap, import("socket.io/dist/typed-events").DefaultEventsMap, any>>;
     handleDisconnect(client: Socket): void;
     handleRemovmessageseMessage(client: Socket, payload: Message): Promise<void>;
     postMessage(payload: Message): void;

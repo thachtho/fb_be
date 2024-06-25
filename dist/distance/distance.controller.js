@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DistanceController = void 0;
 const common_1 = require("@nestjs/common");
 const guard_1 = require("../libs/guard/guard");
+const location_1 = require("../libs/utils/location");
 const distance_service_1 = require("./distance.service");
 let DistanceController = class DistanceController {
     constructor(distanceService) {
@@ -22,6 +23,11 @@ let DistanceController = class DistanceController {
     }
     getDistance(body) {
         return this.distanceService.getDistance(body);
+    }
+    test() {
+        const message = 'Hà huy tập đi  Hà huy tập  15k';
+        const data = (0, location_1.getAddressReceiveAndDeliver)(message);
+        console.log(111, data);
     }
 };
 exports.DistanceController = DistanceController;
@@ -32,6 +38,12 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], DistanceController.prototype, "getDistance", null);
+__decorate([
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], DistanceController.prototype, "test", null);
 exports.DistanceController = DistanceController = __decorate([
     (0, common_1.Controller)('distance'),
     (0, guard_1.Public)(),

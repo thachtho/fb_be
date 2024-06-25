@@ -49,9 +49,11 @@ export class AppGateway
     const phone = client.handshake?.query?.phone as string;
     
     if (phone) {
-      this.addUser({ phone, socketId: client.id });
+      console.log('Connection!')
+      return this.addUser({ phone, socketId: client.id });
     }
-    console.log('Connection!')
+    
+    return client.disconnect();
   }
 
   handleDisconnect(client: Socket) {
