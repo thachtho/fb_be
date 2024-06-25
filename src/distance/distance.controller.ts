@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { Public } from 'src/libs/guard/guard';
-import { getAddressReceiveAndDeliver } from 'src/libs/utils/location';
+import { getAddressReceiveAndDeliver, getFullAddress } from 'src/libs/utils/location';
 import { DistanceService } from './distance.service';
 
 @Controller('distance')

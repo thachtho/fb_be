@@ -36,23 +36,35 @@ const getAddressReceiveAndDeliver = (message: string) => {
     const addressB = getAddressV1(message, addressA, true)
     
     if (addressA && addressB) {
-      const streets = [addressA, addressB]
-      let nhanIndex = -1;
-      let giaoIndex = -1;
+      receive = addressA;
+      deliver = addressB;
 
-      streets.forEach(city => {
-        const index = message.indexOf(city);
-        if (index !== -1) {
-          if (nhanIndex === -1 || index < nhanIndex) {
-            receive = city;
-            nhanIndex = index;
-          } 
-          if (giaoIndex === -1 || index > giaoIndex) {
-            deliver = city;
-            giaoIndex = index;
-          }
+      const streets = [{
+          address: addressA,
+          position: 0
+        }, 
+        {
+          address: addressB,
+          position: 0
+        }
+      ]
+
+      const newStreests = streets.map(city => {
+        const index = message.toLowerCase().indexOf(city.address.toLowerCase());
+          console.log('city', index)
+        return {
+          ...city,
+          position: index
         }
       });
+      
+      if (newStreests[0].position > newStreests[1].position) {
+        receive = addressB;
+        deliver = addressA
+      }
+
+    } else {
+      receive = addressA
     }
   }
 
