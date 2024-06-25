@@ -68,7 +68,7 @@ export class AppGateway
       if (posts.length === 20) {
         posts.pop();
       }
-      if (payload.name === 'Anonymous participant') {
+      if (payload.name === 'Anonymous participant' || payload.name === 'Người tham gia ẩn danh') {
         payload.name = '[Ẩn danh - Nguy Hiểm]'
       }
       posts.unshift({
