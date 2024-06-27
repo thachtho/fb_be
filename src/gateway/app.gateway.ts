@@ -46,13 +46,14 @@ export class AppGateway
   }
 
   async handleConnection(client: Socket) {
+    console.log('Connection!')
     const phone = client.handshake?.query?.phone as string;
     
     if (phone) {
       console.log('Connection!')
       return this.addUser({ phone, socketId: client.id });
     }
-    
+    console.log('ko tim thay phone')
     return client.disconnect();
   }
 
@@ -63,9 +64,10 @@ export class AppGateway
 
   @SubscribeMessage('message')
   async handleRemovmessageseMessage(client: Socket, payload: Message) {
+    console.log(1111, payload)
+
     let posts = Post.posts;
     const check: any = posts.find((item) => item.postId === payload.postId);
-
     if (!check) {
       if (posts.length === 20) {
         posts.pop();

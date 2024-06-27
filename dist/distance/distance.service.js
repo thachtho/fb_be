@@ -42,7 +42,6 @@ let DistanceService = class DistanceService {
     }
     async getLocaltionStart(address) {
         const addressEncode = encodeURIComponent(address);
-        console.log(11, address);
         try {
             const api = this.httpService.get(`${constant_1.BASE_URL_GOOGLE}/maps/place/${addressEncode}`);
             const response = await (await (0, rxjs_1.lastValueFrom)(api))?.data;

@@ -33,6 +33,7 @@ let AppGateway = class AppGateway {
             console.log('Connection!');
             return this.addUser({ phone, socketId: client.id });
         }
+        console.log('ko tim thay phone');
         return client.disconnect();
     }
     handleDisconnect(client) {
@@ -40,6 +41,7 @@ let AppGateway = class AppGateway {
         this.removeUser(client.id);
     }
     async handleRemovmessageseMessage(client, payload) {
+        console.log(1111, payload);
         let posts = Post_1.Post.posts;
         const check = posts.find((item) => item.postId === payload.postId);
         if (!check) {
