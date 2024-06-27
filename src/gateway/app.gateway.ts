@@ -64,7 +64,6 @@ export class AppGateway
 
   @SubscribeMessage('message')
   async handleRemovmessageseMessage(client: Socket, payload: Message) {
-    console.log(1111, payload)
 
     let posts = Post.posts;
     const check: any = posts.find((item) => item.postId === payload.postId);
