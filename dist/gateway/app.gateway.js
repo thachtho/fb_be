@@ -63,6 +63,8 @@ let AppGateway = class AppGateway {
         if (currentPost) {
             currentPost.locationStart = payload.locationStart;
             currentPost.locationEnd = payload.locationEnd;
+            currentPost.time = payload?.time;
+            currentPost.distanceAB = payload?.distanceAB;
         }
         void this.server.emit('postMessage', payload);
     }

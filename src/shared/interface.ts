@@ -4,3 +4,8 @@ export interface IUser {
     access: boolean,
     password: string
 }
+
+export interface IDistance {
+    latitude: any
+    longitude: any
+  }

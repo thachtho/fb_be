@@ -10,6 +10,8 @@ interface Message {
     userId?: string;
     locationStart?: any;
     locationEnd?: any;
+    distanceAB?: number | null;
+    time?: number | null;
 }
 interface IClientSocketUser {
     phone: string;

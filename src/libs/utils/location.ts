@@ -1,4 +1,6 @@
+import { IDistance } from "src/shared/interface"
 import { danang } from "../data/danang"
+import { getDistance } from "geolib"
 
 const getFullAddress = (street: string, message: string) => {
     for (const district of danang.district) {
@@ -107,6 +109,25 @@ const getNumberHome = (street: string, message: string) => {
   return numberHome
 }
 
+function calculateTravelTime(distance: number, speed: number) {
+  const timeInHours = distance / speed;
+  const timeInMinutes = timeInHours * 60;
+  
+  return {
+      hours: timeInHours.toFixed(2),
+      minutes: timeInMinutes.toFixed(2)
+  };
+}
+
+function calculateDistance(locationA: IDistance, locationB: IDistance) {
+  const distance = getDistance(
+    locationA,
+    locationB
+  );
+
+  return distance ? parseFloat((distance / 1000).toFixed(1)) : null;
+}
+
 export {
-  getFullAddress, getAddressReceiveAndDeliver
+  getFullAddress, getAddressReceiveAndDeliver, calculateDistance, calculateTravelTime
 }
