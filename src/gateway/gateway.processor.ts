@@ -31,6 +31,7 @@ export class SocketProcessor {
                     this.distanceService.getLocaltionStart(receive),
                     this.distanceService.getLocaltionStart(deliver)
                 ])
+                console.log(111, locationStart, locationEnd)
                 payload.locationStart = locationStart
                 payload.locationEnd = locationEnd
             }
