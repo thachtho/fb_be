@@ -28,6 +28,7 @@ let AppGateway = class AppGateway {
         console.log('Socket.IO server initialized');
     }
     async handleConnection(client) {
+        console.log('Connection!');
         const phone = client.handshake?.query?.phone;
         if (phone) {
             console.log('Connection!');
@@ -41,7 +42,7 @@ let AppGateway = class AppGateway {
         this.removeUser(client.id);
     }
     async handleRemovmessageseMessage(client, payload) {
-        console.log(1111, payload);
+        console.log(111, payload);
         let posts = Post_1.Post.posts;
         const check = posts.find((item) => item.postId === payload.postId);
         if (!check) {
@@ -70,6 +71,7 @@ let AppGateway = class AppGateway {
         }
     }
     postMessage(payload) {
+        console.log(111, payload);
         let posts = Post_1.Post.posts;
         const currentPost = posts.find(item => item.postId === payload.postId);
         if (currentPost) {

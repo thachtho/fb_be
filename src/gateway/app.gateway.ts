@@ -64,9 +64,9 @@ export class AppGateway
 
   @SubscribeMessage('message')
   async handleRemovmessageseMessage(client: Socket, payload: Message) {
-
     let posts = Post.posts;
     const check: any = posts.find((item) => item.postId === payload.postId);
+
     if (!check) {
       if (posts.length === 20) {
         posts.pop();
@@ -78,23 +78,11 @@ export class AppGateway
         ...payload,
       });
       void this.socketQueue.add('add-message', { payload })
-    } else {
-      if(payload?.startNavigator) {
-        check.startNavigator = payload.startNavigator
-      }
-      if (payload.content.length > 0) {
-        check.content = payload.content
-      }
-
-      if (payload?.name && payload.name.length > 0) {
-        check.name = payload?.name
-      }
-
-      posts = [...posts]
     }
   }
 
   postMessage(payload: Message) {
+    console.log(111, payload)
     let posts = Post.posts;
     const currentPost: any = posts.find(item => item.postId === payload.postId)
 
