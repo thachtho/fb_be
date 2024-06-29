@@ -6,7 +6,9 @@ const getFullAddress = (street: string, message: string) => {
   
       if (data) {
         const numberHome = getNumberHome(message, street)
-        const fullData = `${numberHome ? numberHome : ''} ${data}, ${district.name}, ${danang.name}, Việt Nam`
+        // const fullData = `${numberHome ? numberHome : ''} ${data}, ${district.name}, ${danang.name}, Việt Nam`;
+        const fullData = `${data}, ${district.name}, ${danang.name}, Việt Nam`
+
         return fullData
       }
     }

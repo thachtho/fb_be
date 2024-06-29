@@ -15,7 +15,7 @@ export class DistanceController {
 
   @Get()
   test() {
-    const message = '143 vũ lăng đi phạm văn đồng phí 35'
+    const message = 'Nhận đàm văn lễ đi huỳnh văn nghệ. Ứng 520k phí 60k ( bàn k + nệm xốp mỏng 1,6m)'
     const data = getAddressReceiveAndDeliver(message)
     console.log(111, data)  
     // console.log(2222, address)

@@ -25,7 +25,7 @@ let DistanceController = class DistanceController {
         return this.distanceService.getDistance(body);
     }
     test() {
-        const message = '143 vũ lăng đi phạm văn đồng phí 35';
+        const message = 'Nhận đàm văn lễ đi huỳnh văn nghệ. Ứng 520k phí 60k ( bàn k + nệm xốp mỏng 1,6m)';
         const data = (0, location_1.getAddressReceiveAndDeliver)(message);
         console.log(111, data);
     }
