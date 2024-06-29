@@ -22,25 +22,25 @@ export class SocketProcessor {
 
         if (!receive) return; 
 
-        if (!deliver){
-            const locationStart = await this.distanceService.getLocaltionStart(receive)
-            payload.locationStart = locationStart
-        } else {
-            const [locationStart, locationEnd] = await Promise.all([
-                this.distanceService.getLocaltionStart(receive),
-                this.distanceService.getLocaltionStart(deliver)
-            ])
-            const distanceAB = calculateDistance(locationStart, locationEnd)
+        // if (!deliver){
+        const locationStart = await this.distanceService.getLocaltionStart(receive)
+        payload.locationStart = locationStart
+        // } else {
+        //     const [locationStart, locationEnd] = await Promise.all([
+        //         this.distanceService.getLocaltionStart(receive),
+        //         this.distanceService.getLocaltionStart(deliver)
+        //     ])
+        //     const distanceAB = calculateDistance(locationStart, locationEnd)
 
-            if (distanceAB) {
-                payload.distanceAB = distanceAB || null    
-                const time = calculateTravelTime(distanceAB, 40)
-                payload.time = time || null      
-            }
+        //     if (distanceAB) {
+        //         payload.distanceAB = distanceAB || null    
+        //         const time = calculateTravelTime(distanceAB, 40)
+        //         payload.time = time || null      
+        //     }
 
-            payload.locationStart = locationStart
-            payload.locationEnd = locationEnd     
-        }
+        //     payload.locationStart = locationStart
+        //     payload.locationEnd = locationEnd     
+        // }
 
         return this.gateWay.postMessage(payload)
     }
