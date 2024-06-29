@@ -484,7 +484,6 @@ export const danang = {
           'Pasteur',
           'Phạm Bành',
           'Phạm Công Trứ',
-          'Phạm Hùng',
           'Phạm Hữu Nghị',
           'Phạm Phú Tiết',
           'Phạm Sư Mạnh',

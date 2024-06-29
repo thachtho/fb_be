@@ -14,11 +14,15 @@ export class DistanceController {
   }
 
   @Get()
-  test() {
-    const message = 'Nhận đàm văn lễ đi huỳnh văn nghệ. Ứng 520k phí 60k ( bàn k + nệm xốp mỏng 1,6m)'
-    const data = getAddressReceiveAndDeliver(message)
-    console.log(111, data)  
-    // console.log(2222, address)
+  async test() {
+    const message = 'Nhận 35 phạm Hùng. Giao 95/15 bà huyện thanh quan. Phí 20k. Đi liền. Ứng 149k'
+    const { deliver, receive } = getAddressReceiveAndDeliver(message)
+    const [locationStart, locationEnd] = await Promise.all([
+      this.distanceService.getLocaltionStart(receive),
+      this.distanceService.getLocaltionStart(deliver)
+  ])
+
+    console.log(2222, locationStart, locationEnd)
 
     // return this.distanceService.getLocaltionStart(address)
   }

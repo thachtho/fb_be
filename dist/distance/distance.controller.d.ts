@@ -7,5 +7,5 @@ export declare class DistanceController {
         long: any;
         address: string | null;
     }): Promise<any>;
-    test(): void;
+    test(): Promise<void>;
 }

@@ -24,10 +24,14 @@ let DistanceController = class DistanceController {
     getDistance(body) {
         return this.distanceService.getDistance(body);
     }
-    test() {
-        const message = 'Nhận đàm văn lễ đi huỳnh văn nghệ. Ứng 520k phí 60k ( bàn k + nệm xốp mỏng 1,6m)';
-        const data = (0, location_1.getAddressReceiveAndDeliver)(message);
-        console.log(111, data);
+    async test() {
+        const message = 'Nhận 35 phạm Hùng. Giao 95/15 bà huyện thanh quan. Phí 20k. Đi liền. Ứng 149k';
+        const { deliver, receive } = (0, location_1.getAddressReceiveAndDeliver)(message);
+        const [locationStart, locationEnd] = await Promise.all([
+            this.distanceService.getLocaltionStart(receive),
+            this.distanceService.getLocaltionStart(deliver)
+        ]);
+        console.log(2222, locationStart, locationEnd);
     }
 };
 exports.DistanceController = DistanceController;
@@ -42,7 +46,7 @@ __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], DistanceController.prototype, "test", null);
 exports.DistanceController = DistanceController = __decorate([
     (0, common_1.Controller)('distance'),

@@ -41,9 +41,7 @@ export class DistanceService {
       const api = this.httpService.get(
         `${BASE_URL_GOOGLE}/maps/place/${addressEncode}`,
       );
-
       const response = await (await lastValueFrom(api))?.data
-
       
       if (response) {
         const url = regexUrlGoogleMap(response)
