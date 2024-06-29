@@ -82,7 +82,6 @@ export class AppGateway
   }
 
   postMessage(payload: Message) {
-    console.log(111, payload)
     let posts = Post.posts;
     const currentPost: any = posts.find(item => item.postId === payload.postId)
 
