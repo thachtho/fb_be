@@ -17,25 +17,23 @@ export class SocketProcessor {
     async transcode(job: Job<any>) {
         const { payload } = job.data || {};
 
-        if (payload) {
-            const { receive, deliver } = getAddressReceiveAndDeliver(payload.content);
+        if (!payload) return;
+        const { receive, deliver } = getAddressReceiveAndDeliver(payload.content);
 
-            if (receive && !deliver){
-                const locationStart = await this.distanceService.getLocaltionStart(receive)
-                payload.locationStart = locationStart
-                return this.gateWay.postMessage(payload)
-            }
+        if (!receive) return; 
 
-            if (receive && deliver) {
-                const [locationStart, locationEnd] = await Promise.all([
-                    this.distanceService.getLocaltionStart(receive),
-                    this.distanceService.getLocaltionStart(deliver)
-                ])
-                payload.locationStart = locationStart
-                payload.locationEnd = locationEnd
-
-                return this.gateWay.postMessage(payload)
-            }
+        if (!deliver){
+            const locationStart = await this.distanceService.getLocaltionStart(receive)
+            payload.locationStart = locationStart
+        } else {
+            const [locationStart, locationEnd] = await Promise.all([
+                this.distanceService.getLocaltionStart(receive),
+                this.distanceService.getLocaltionStart(deliver)
+            ])
+            payload.locationStart = locationStart
+            payload.locationEnd = locationEnd            
         }
+
+        return this.gateWay.postMessage(payload)
     }
 }
