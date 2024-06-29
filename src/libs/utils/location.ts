@@ -114,8 +114,8 @@ function calculateTravelTime(distance: number, speed: number) {
   const timeInMinutes = timeInHours * 60;
   
   return {
-      hours: timeInHours.toFixed(1),
-      minutes: timeInMinutes.toFixed(1)
+      hours: Math.floor(timeInHours),
+      minutes: Math.floor(timeInMinutes),
   };
 }
 
