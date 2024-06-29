@@ -1,11 +1,12 @@
 import { danang } from "../data/danang"
 
-const getFullAddress = (content: string) => {
+const getFullAddress = (street: string, message: string) => {
     for (const district of danang.district) {
-      const data = getStreet(district.street, content)
+      const data = getStreet(district.street, street)
   
       if (data) {
-        const fullData = `${data}, ${district.name}, ${danang.name}, Việt Nam`
+        const numberHome = getNumberHome(message, street)
+        const fullData = `${numberHome ? numberHome : ''} ${data}, ${district.name}, ${danang.name}, Việt Nam`
         return fullData
       }
     }
@@ -69,8 +70,8 @@ const getAddressReceiveAndDeliver = (message: string) => {
   }
 
   return {
-    receive: receive ? getFullAddress(receive) : null,
-    deliver: deliver ? getFullAddress(deliver) : null,
+    receive: receive ? getFullAddress(receive, message) : null,
+    deliver: deliver ? getFullAddress(deliver, message) : null,
   }
 }
 
@@ -86,6 +87,22 @@ const getAddressV1 = (message: string, condition = '', isCheck =  false) => {
       return data;
     }
   }
+}
+
+const getNumberHome = (street: string, message: string) => {
+  let numberHome = null
+  street = street.toLowerCase();
+  message = message.toLowerCase();
+  
+  // Sử dụng regex để tìm địa chỉ trước chuỗi con "Hà huy tập"
+  const regex = new RegExp(`(\\S+)\\s+${message}`);
+  const match = street.match(regex);
+  
+  if (match && match[1]) {
+    numberHome = match[1];
+  }
+
+  return numberHome
 }
 
 export {

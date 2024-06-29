@@ -15,7 +15,7 @@ export class DistanceController {
 
   @Get()
   test() {
-    const message = 'Hà huy tập đi  Hà huy tập  15k'
+    const message = 'k1/98 Duy Tân  đi  k9/98 Hà huy tập  15k'
     const data = getAddressReceiveAndDeliver(message)
     console.log(111, data)  
     // console.log(2222, address)

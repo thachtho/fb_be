@@ -42,7 +42,6 @@ let AppGateway = class AppGateway {
         this.removeUser(client.id);
     }
     async handleRemovmessageseMessage(client, payload) {
-        console.log(111, payload);
         let posts = Post_1.Post.posts;
         const check = posts.find((item) => item.postId === payload.postId);
         if (!check) {
@@ -57,25 +56,13 @@ let AppGateway = class AppGateway {
             });
             void this.socketQueue.add('add-message', { payload });
         }
-        else {
-            if (payload?.startNavigator) {
-                check.startNavigator = payload.startNavigator;
-            }
-            if (payload.content.length > 0) {
-                check.content = payload.content;
-            }
-            if (payload?.name && payload.name.length > 0) {
-                check.name = payload?.name;
-            }
-            posts = [...posts];
-        }
     }
     postMessage(payload) {
-        console.log(111, payload);
         let posts = Post_1.Post.posts;
         const currentPost = posts.find(item => item.postId === payload.postId);
         if (currentPost) {
-            currentPost.location = payload.location;
+            currentPost.locationStart = payload.locationStart;
+            currentPost.locationEnd = payload.locationEnd;
         }
         void this.server.emit('postMessage', payload);
     }

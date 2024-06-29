@@ -25,7 +25,7 @@ let DistanceController = class DistanceController {
         return this.distanceService.getDistance(body);
     }
     test() {
-        const message = 'Hà huy tập đi  Hà huy tập  15k';
+        const message = 'k1/98 Duy Tân  đi  k9/98 Hà huy tập  15k';
         const data = (0, location_1.getAddressReceiveAndDeliver)(message);
         console.log(111, data);
     }

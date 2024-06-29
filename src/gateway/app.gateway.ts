@@ -20,8 +20,8 @@ interface Message {
   content: string;
   created_at?: Date;
   userId?: string;
-  startNavigator?: any,
-  location?: any
+  locationStart?: any,
+  locationEnd?: any
 }
 
 interface IClientSocketUser {
@@ -86,7 +86,8 @@ export class AppGateway
     const currentPost: any = posts.find(item => item.postId === payload.postId)
 
     if (currentPost) {
-      currentPost.location = payload.location;
+      currentPost.locationStart = payload.locationStart;
+      currentPost.locationEnd = payload.locationEnd;
     }
 
     void this.server.emit('postMessage', payload);

@@ -8,8 +8,8 @@ interface Message {
     content: string;
     created_at?: Date;
     userId?: string;
-    startNavigator?: any;
-    location?: any;
+    locationStart?: any;
+    locationEnd?: any;
 }
 interface IClientSocketUser {
     phone: string;
