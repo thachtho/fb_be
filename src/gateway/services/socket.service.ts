@@ -31,13 +31,15 @@ export class SocketService {
             console.log(33333, locationEnd)
             console.log('=================')
 
-
-            const distanceAB = calculateDistance(locationStart, locationEnd)
-
-            if (distanceAB) {
-                payload.distanceAB = distanceAB || null    
-                const time = calculateTravelTime(distanceAB, 40)
-                payload.time = time || null      
+            if ((locationStart && (locationStart.latitude && locationStart.longitude))
+                && (locationEnd && (locationEnd.latitude && locationEnd.longitude))
+            ) {
+                const distanceAB = calculateDistance(locationStart, locationEnd)
+                if (distanceAB) {
+                    payload.distanceAB = distanceAB || null    
+                    const time = calculateTravelTime(distanceAB, 40)
+                    payload.time = time || null      
+                }
             }
 
             payload.locationStart = locationStart
