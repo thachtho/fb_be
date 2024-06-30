@@ -24,7 +24,7 @@ export interface Message {
   locationStart?: any,
   locationEnd?: any,
   distanceAB?: number | null,
-  time?: number | null   
+  time?: any 
 }
 
 interface IClientSocketUser {
