@@ -1,8 +1,7 @@
-import { HttpService } from '@nestjs/axios';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit } from '@nestjs/websockets';
-import { Queue } from 'bull';
 import { Server, Socket } from 'socket.io';
-interface Message {
+export interface Message {
     name: string;
     postId: string;
     content: string;
@@ -18,9 +17,8 @@ interface IClientSocketUser {
     socketId: string;
 }
 export declare class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
-    private readonly httpService;
-    private socketQueue;
-    constructor(httpService: HttpService, socketQueue: Queue);
+    private eventEmitter;
+    constructor(eventEmitter: EventEmitter2);
     server: Server;
     afterInit(server: Server): void;
     handleConnection(client: Socket): Promise<void | Socket<import("socket.io/dist/typed-events").DefaultEventsMap, import("socket.io/dist/typed-events").DefaultEventsMap, import("socket.io/dist/typed-events").DefaultEventsMap, any>>;

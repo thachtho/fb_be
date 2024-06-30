@@ -1,5 +1,6 @@
 import { HttpService } from '@nestjs/axios';
 import { InjectQueue } from '@nestjs/bull';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import {
   OnGatewayConnection,
   OnGatewayDisconnect,
@@ -14,7 +15,7 @@ import { Post } from 'src/static/Post';
 import { UsersOnline } from 'src/static/UserOnline';
 
 
-interface Message {
+export interface Message {
   name: string;
   postId: string;
   content: string;
@@ -38,8 +39,7 @@ export class AppGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
   constructor(
-    private readonly httpService: HttpService, 
-    @InjectQueue('socket') private socketQueue: Queue
+    private eventEmitter: EventEmitter2
   ) {}
   @WebSocketServer() server: Server;
 
@@ -79,7 +79,11 @@ export class AppGateway
       posts.unshift({
         ...payload,
       });
-      void this.socketQueue.add('add-message', { payload })
+
+      void this.eventEmitter.emit(
+        'post.created',
+        payload,
+      );
     }
   }
 

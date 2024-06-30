@@ -20,6 +20,7 @@ const distance_module_1 = require("./distance/distance.module");
 const gateway_modules_1 = require("./gateway/gateway.modules");
 const users_module_1 = require("./users/users.module");
 const bull_1 = require("@nestjs/bull");
+const event_emitter_1 = require("@nestjs/event-emitter");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -37,6 +38,7 @@ exports.AppModule = AppModule = __decorate([
                     mount: true,
                 },
             }),
+            event_emitter_1.EventEmitterModule.forRoot(),
             gateway_modules_1.GatewayModules,
             schedule_1.ScheduleModule.forRoot(),
             axios_1.HttpModule.register({}),

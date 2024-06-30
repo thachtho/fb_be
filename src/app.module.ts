@@ -11,6 +11,7 @@ import { DistanceModule } from './distance/distance.module';
 import { GatewayModules } from './gateway/gateway.modules';
 import { UsersModule } from './users/users.module';
 import { BullModule } from '@nestjs/bull';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { BullModule } from '@nestjs/bull';
         mount: true,
       },
     }),
+    EventEmitterModule.forRoot(),
     GatewayModules,
     ScheduleModule.forRoot(),
     HttpModule.register({}),
