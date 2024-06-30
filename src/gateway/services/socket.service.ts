@@ -22,10 +22,16 @@ export class SocketService {
         const locationStart = await this.distanceService.getLocaltionStart(receive)
         payload.locationStart = locationStart
         } else {
+            console.log(1111, payload.content)
             const [locationStart, locationEnd] = await Promise.all([
                 this.distanceService.getLocaltionStart(receive),
                 this.distanceService.getLocaltionStart(deliver)
             ])
+            console.log(22222, locationStart)
+            console.log(33333, locationEnd)
+            console.log('=================')
+
+
             const distanceAB = calculateDistance(locationStart, locationEnd)
 
             if (distanceAB) {
