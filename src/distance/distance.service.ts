@@ -110,5 +110,7 @@ export class DistanceService {
         path: `./images/${fileName}.jpg`,
         clip: { x: 500, y: 0, width: 780, height: 720 }
     });
+
+    console.log('tao anh thanh cong!!!!!!!!')
   }
 }

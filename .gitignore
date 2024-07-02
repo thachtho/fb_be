@@ -1,3 +1,4 @@
 /nodem_modules
 node_modules
 dist
+.cache
