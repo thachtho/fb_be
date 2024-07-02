@@ -67,6 +67,7 @@ export class AppGateway
 
   @SubscribeMessage('message')
   async handleRemovmessageseMessage(client: Socket, payload: Message) {
+    payload.content = payload.content.replace('PHIÊN BẢN G_O.J_O TRÊN MÁY BẠN ĐÃ CŨ. BẤM RELOAD ĐỂ CẬP NHẬT PHIÊN BẢN MỚI NHÉ', '')
     let posts = Post.posts;
     const check: any = posts.find((item) => item.postId === payload.postId);
 
