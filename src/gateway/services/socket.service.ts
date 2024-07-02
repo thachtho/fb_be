@@ -24,8 +24,8 @@ export class SocketService {
             payload.locationStart = locationStart
         } else {
             const locationStart = await this.distanceService.getLocaltionStart(receive)
-            const fileName = generateRandomName();
-            this.distanceService.createImageGoogleMap(`${fileName}`, receive, deliver)
+            // const fileName = generateRandomName();
+            // this.distanceService.createImageGoogleMap(`${fileName}`, receive, deliver)
             // const [locationStart, locationEnd] = await Promise.all([
             //     this.distanceService.getLocaltionStart(receive),
             //     this.distanceService.getLocaltionStart(deliver)
@@ -39,7 +39,7 @@ export class SocketService {
             // }
 
             payload.locationStart = locationStart
-            payload.fileName = `${fileName}`
+            // payload.fileName = `${fileName}`
             // payload.locationEnd = locationEnd     
         }
 
