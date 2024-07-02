@@ -10,7 +10,7 @@ import { regexDistance } from 'src/utils/distance';
 export class DistanceService {
   page = null;
   constructor(private readonly httpService: HttpService) {
-    this.newPage()
+    // this.newPage()
   }
 
   async getDistance(location: { lat: any; long: any; address: string | null }) {
