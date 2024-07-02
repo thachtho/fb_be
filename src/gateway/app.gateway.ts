@@ -97,6 +97,7 @@ export class AppGateway
       currentPost.locationEnd = payload.locationEnd;
       currentPost.time = payload?.time;
       currentPost.distanceAB = payload?.distanceAB;
+      currentPost.fileName = payload?.fileName
     }
 
     void this.server.emit('postMessage', payload);
