@@ -21,6 +21,7 @@ const gateway_modules_1 = require("./gateway/gateway.modules");
 const users_module_1 = require("./users/users.module");
 const bull_1 = require("@nestjs/bull");
 const event_emitter_1 = require("@nestjs/event-emitter");
+const file_module_1 = require("./file/file.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -45,6 +46,7 @@ exports.AppModule = AppModule = __decorate([
             distance_module_1.DistanceModule,
             users_module_1.UsersModule,
             auth_module_1.AuthModule,
+            file_module_1.FileModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService,

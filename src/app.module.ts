@@ -12,6 +12,7 @@ import { GatewayModules } from './gateway/gateway.modules';
 import { UsersModule } from './users/users.module';
 import { BullModule } from '@nestjs/bull';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { FileModule } from './file/file.module';
 
 @Module({
   imports: [
@@ -33,10 +34,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     DistanceModule,
     UsersModule,
     AuthModule,
-    // MongooseModule.forRoot('mongodb+srv://buithanhtho31ig:bHVCkgHfEBBFi6FM@cluster0.2d5twje.mongodb.net/', {
-    //   dbName: 'fb',
-    // })
-
+    FileModule
   ],
   controllers: [AppController],
   providers: [AppService,

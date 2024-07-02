@@ -11,6 +11,7 @@ export interface Message {
     locationEnd?: any;
     distanceAB?: number | null;
     time?: any;
+    fileName?: string;
 }
 interface IClientSocketUser {
     phone: string;
