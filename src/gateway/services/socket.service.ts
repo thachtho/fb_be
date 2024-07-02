@@ -16,6 +16,7 @@ export class SocketService {
     async handleAddPost(payload: Message) {
         if (!payload) return;
         const { receive, deliver } = getAddressReceiveAndDeliver(payload.content);
+        payload.content = payload.content.replace('PHIÊN BẢN G_O.J_O TRÊN MÁY BẠN ĐÃ CŨ. BẤM RELOAD ĐỂ CẬP NHẬT PHIÊN BẢN MỚI NHÉ', '')
 
         if (!receive) return; 
 
