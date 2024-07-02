@@ -25,6 +25,7 @@ export class SocketService {
         } else {
             const locationStart = await this.distanceService.getLocaltionStart(receive)
             const fileName = generateRandomName();
+            this.distanceService.createImageGoogleMap(`${fileName}`, receive, deliver)
             // const [locationStart, locationEnd] = await Promise.all([
             //     this.distanceService.getLocaltionStart(receive),
             //     this.distanceService.getLocaltionStart(deliver)

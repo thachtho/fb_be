@@ -21,6 +21,7 @@ let DistanceService = class DistanceService {
     constructor(httpService) {
         this.httpService = httpService;
         this.page = null;
+        this.newPage();
     }
     async getDistance(location) {
         if (!location) {
@@ -71,18 +72,18 @@ let DistanceService = class DistanceService {
         await page.setViewport({ width: 1280, height: 720 });
         this.page = page;
     }
-    async createImageGoogleMap(fileName) {
+    async createImageGoogleMap(fileName, start, end) {
         const page = await this.page;
         await page.evaluate(() => {
             const input = document.querySelector('#directions-searchbox-0 input.tactile-searchbox-input');
             if (input) {
-                input.value = '90 Lý Thái Tổ, Thạc Gián, Thanh Khê, Đà Nẵng 550000, Việt Nam';
+                input.value = start;
                 const event = new Event('input', { bubbles: true });
                 input.dispatchEvent(event);
             }
             const input2 = document.querySelector('#directions-searchbox-1 input.tactile-searchbox-input');
             if (input2) {
-                input2.value = '80 Huỳnh Thúc Kháng, Nam Dương, Hải Châu, Đà Nẵng 550000, Việt Nam';
+                input2.value = end;
                 const event = new Event('input', { bubbles: true });
                 input2.dispatchEvent(event);
             }

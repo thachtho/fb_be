@@ -13,5 +13,5 @@ export declare class DistanceService {
         longitude: string;
     }>;
     newPage(): Promise<void>;
-    createImageGoogleMap(fileName: string): Promise<void>;
+    createImageGoogleMap(fileName: string, start: string, end: string): Promise<void>;
 }

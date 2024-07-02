@@ -9,7 +9,9 @@ import { regexDistance } from 'src/utils/distance';
 @Injectable()
 export class DistanceService {
   page = null;
-  constructor(private readonly httpService: HttpService) {}
+  constructor(private readonly httpService: HttpService) {
+    this.newPage()
+  }
 
   async getDistance(location: { lat: any; long: any; address: string | null }) {
     if (!location) {
@@ -72,19 +74,19 @@ export class DistanceService {
     this.page = page;
   }
 
-  async createImageGoogleMap(fileName: string) {
+  async createImageGoogleMap(fileName: string, start: string, end: string) {
     const page = await this.page;
     await page.evaluate(() => {
         const input: any = document.querySelector('#directions-searchbox-0 input.tactile-searchbox-input');
         if (input) {
-            input.value = '90 Lý Thái Tổ, Thạc Gián, Thanh Khê, Đà Nẵng 550000, Việt Nam';
+            input.value = start;
             const event = new Event('input', { bubbles: true });
             input.dispatchEvent(event);
         }
 
         const input2: any = document.querySelector('#directions-searchbox-1 input.tactile-searchbox-input');
         if (input2) {
-            input2.value = '80 Huỳnh Thúc Kháng, Nam Dương, Hải Châu, Đà Nẵng 550000, Việt Nam';
+            input2.value = end;
             const event = new Event('input', { bubbles: true });
             input2.dispatchEvent(event);
         }
