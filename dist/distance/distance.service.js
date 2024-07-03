@@ -21,7 +21,6 @@ let DistanceService = class DistanceService {
     constructor(httpService) {
         this.httpService = httpService;
         this.page = null;
-        this.newPage();
     }
     async getDistance(location) {
         if (!location) {
@@ -103,6 +102,7 @@ let DistanceService = class DistanceService {
             path: `./images/${fileName}.jpg`,
             clip: { x: 500, y: 0, width: 780, height: 720 }
         });
+        console.log('tao anh thanh cong!!!!!!!!');
     }
 };
 exports.DistanceService = DistanceService;

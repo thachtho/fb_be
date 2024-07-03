@@ -37,6 +37,8 @@ let AppGateway = class AppGateway {
         this.removeUser(client.id);
     }
     async handleRemovmessageseMessage(client, payload) {
+        console.log(222, payload);
+        payload.content = payload.content.replace('PHIÊN BẢN G_O.J_O TRÊN MÁY BẠN ĐÃ CŨ. BẤM RELOAD ĐỂ CẬP NHẬT PHIÊN BẢN MỚI NHÉ', '');
         let posts = Post_1.Post.posts;
         const check = posts.find((item) => item.postId === payload.postId);
         if (!check) {
