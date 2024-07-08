@@ -70,7 +70,7 @@ export class AppGateway
     console.log(222, payload)
     payload.content = payload.content.replace('PHIÊN BẢN G_O.J_O TRÊN MÁY BẠN ĐÃ CŨ. BẤM RELOAD ĐỂ CẬP NHẬT PHIÊN BẢN MỚI NHÉ', '')
     let posts = Post.posts;
-    const check: any = posts.find((item) => item.postId === payload.postId);
+    let check: any = posts.find((item) => item.postId === payload.postId);
 
     if (!check) {
       if (posts.length === 20) {
@@ -89,8 +89,8 @@ export class AppGateway
       );
     }
 
-    const newPost = { ...check, ...payload }
-    void this.server.emit('postMessage', newPost);
+    check = { ...check, ...payload }
+    void this.server.emit('postMessage', check);
   }
 
   postMessage(payload: Message) {
