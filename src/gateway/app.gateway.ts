@@ -88,6 +88,9 @@ export class AppGateway
         payload,
       );
     }
+
+    const newPost = { ...check, ...payload }
+    void this.server.emit('postMessage', newPost);
   }
 
   postMessage(payload: Message) {
