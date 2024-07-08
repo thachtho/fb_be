@@ -25,7 +25,8 @@ export interface Message {
   locationEnd?: any,
   distanceAB?: number | null,
   time?: any,
-  fileName?: string
+  fileName?: string,
+  mapUrl?: string
 }
 
 interface IClientSocketUser {
@@ -89,7 +90,7 @@ export class AppGateway
       );
     }
 
-    check = { ...check, ...payload }
+    check.mapUrl = payload?.mapUrl
     void this.server.emit('postMessage', check);
   }
 
