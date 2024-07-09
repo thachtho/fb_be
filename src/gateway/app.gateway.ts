@@ -92,7 +92,7 @@ export class AppGateway
     }
 
     check.mapUrl = payload?.mapUrl
-    check.distance = payload?.distance
+    check.distanceAB = payload?.distance
     void this.server.emit('postMessage', check);
   }
 
