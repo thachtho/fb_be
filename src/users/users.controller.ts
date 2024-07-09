@@ -15,6 +15,7 @@ import { Public } from 'src/libs/guard/guard';
 import { ROUTE } from 'src/libs/constant';
 
 @Controller(ROUTE.USERS)
+@Public()
 export class UsersController {
   constructor(
     private readonly usersService: UsersService, 

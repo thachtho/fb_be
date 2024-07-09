@@ -12,24 +12,29 @@ export class AuthService {
   ) {}
 
   async signIn(phone, pass, type: 'web' | 'mobile' = 'web') {
-    const user = await this.usersService.findByPhone(phone) as any[];
+    try {
+      const user = await this.usersService.findByPhone(phone) as any[];
 
-    if (user.length > 0) {
-      const currentUser = user[0]
-
-      if (currentUser?.password !== pass) {
-        throw new HttpException('Mật khẩu không đúng', 403)
-      }
-      if (!currentUser?.access) {
-        throw new HttpException('Vào nhóm Zalo ở dưới thông báo lên nhóm để được duyệt miễn phí', 403)
-      }
-
-      const payload = { userId: currentUser.id, phone: currentUser.phone, type };
+      if (user.length > 0) {
+        const currentUser = user[0]
   
-      return this.createToken(payload);
+        if (currentUser?.password !== pass) {
+          throw new HttpException('Mật khẩu không đúng', 403)
+        }
+        if (!currentUser?.access) {
+          throw new HttpException('Vào nhóm Zalo ở dưới thông báo lên nhóm để được duyệt miễn phí', 403)
+        }
+  
+        const payload = { userId: currentUser.id, phone: currentUser.phone, type };
+    
+        return this.createToken(payload);
+      }
+  
+      throw new HttpException('Tên tài khoản không đúng', 403)     
+    } catch (error) {
+      console.log(1111111, error)
     }
-
-    throw new HttpException('Tên tài khoản không đúng', 403)
+ 
   }
 
   async createToken(payload: { phone: string; userId: number; type: string }) {
